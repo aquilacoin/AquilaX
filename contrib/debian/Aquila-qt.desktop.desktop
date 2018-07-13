@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Aquila
+Comment=Aquila P2P Cryptocurrency
+Exec=Aquila-qt %u
+Terminal=false
+Type=Application
+Icon=Aquila128
+MimeType=x-scheme-handler/Aquila;
+Categories=Office;Finance;
+Name[en_US]=Aquila-qt.desktop

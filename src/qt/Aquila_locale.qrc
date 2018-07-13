@@ -1,0 +1,29 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/translations">
+        <file alias="bg">locale/Aquila_bg.qm</file>
+        <file alias="ca">locale/Aquila_ca.qm</file>
+        <file alias="cs">locale/Aquila_cs.qm</file>
+        <file alias="da">locale/Aquila_da.qm</file>
+        <file alias="de">locale/Aquila_de.qm</file>
+        <file alias="en">locale/Aquila_en.qm</file>
+        <file alias="en_US">locale/Aquila_en_US.qm</file>
+        <file alias="es">locale/Aquila_es.qm</file>
+        <file alias="fi">locale/Aquila_fi.qm</file>
+        <file alias="fr_FR">locale/Aquila_fr_FR.qm</file>
+        <file alias="it">locale/Aquila_it.qm</file>
+        <file alias="ja">locale/Aquila_ja.qm</file>
+        <file alias="ko_KR">locale/Aquila_ko_KR.qm</file>
+        <file alias="nl">locale/Aquila_nl.qm</file>
+        <file alias="pl">locale/Aquila_pl.qm</file>
+        <file alias="pt">locale/Aquila_pt.qm</file>
+        <file alias="pt_BR">locale/Aquila_pt_BR.qm</file>
+        <file alias="ro_RO">locale/Aquila_ro_RO.qm</file>
+        <file alias="ru">locale/Aquila_ru.qm</file>
+        <file alias="sk">locale/Aquila_sk.qm</file>
+        <file alias="sv">locale/Aquila_sv.qm</file>
+        <file alias="tr">locale/Aquila_tr.qm</file>
+        <file alias="uk">locale/Aquila_uk.qm</file>
+        <file alias="zh_CN">locale/Aquila_zh_CN.qm</file>
+        <file alias="zh_TW">locale/Aquila_zh_TW.qm</file>
+    </qresource>
+</RCC>
