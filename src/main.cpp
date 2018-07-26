@@ -1623,13 +1623,17 @@ int64_t GetBlockValue(int nHeight)
         if (nHeight < Params().LAST_POW_BLOCK() && nHeight > 0)
             return 50000 * COIN;
     }
+    if (IsTreasuryBlock(nHeight)) {
+        LogPrintf("GetBlockValue(): this is a treasury block\n");
+        nSubsidy = GetTreasuryAward(nHeight);
 
 
-    if (nHeight > 0 && nHeight <= 20) 
+	} else {
+    if (nHeight > 0 && nHeight <= 20) //Genesis Block is 0 then 7,500 coins per block till 20
       nSubsidy = 75000 * COIN;
-     else if (nHeight > 20 && nHeight <= 200) 
+     else if (nHeight > 20 && nHeight <= 200) //PoW stage 0 coins per block till 200
       nSubsidy = 0 * COIN;
-     else if (nHeight > 200 && nHeight <= 5000) 
+     else if (nHeight > 200 && nHeight <= 5000) //PoS stage begins
       nSubsidy = 20 * COIN;
      else if (nHeight > 5000 && nHeight <= 10000) 
       nSubsidy = 30 * COIN;
@@ -1661,6 +1665,33 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
     return ret;
 }
 
+ //Treasury blocks start from 70,000 and then each block after
+    int nStartTreasuryBlock = 70000;
+	int nTreasuryBlockStep = 1;
+
+	bool IsTreasuryBlock(int nHeight)
+        {
+            if (nHeight < nStartTreasuryBlock) 
+				return false;
+            else if ((nHeight - nStartTreasuryBlock) % nTreasuryBlockStep == 0) 
+				return true;
+            else 
+				return false;
+            
+        }
+        int64_t GetTreasuryAward(int nHeight) 
+        {
+            if (IsTreasuryBlock(nHeight)) {
+                return 1.5 * COIN; //1.5 on very first block
+            } else if (nHeight > 70000 && nHeight <= 100000) {
+                return 1.5 * COIN; //1.5 on start 5%
+            } else if (nHeight >= 100000) {
+                return 1 * COIN; //1 coins till end at 5%
+            } else {
+            }
+            return 0;
+        }
+		
 bool IsInitialBlockDownload()
 {
     LOCK(cs_main);

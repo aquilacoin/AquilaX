@@ -11,6 +11,8 @@
 #include "random.h"
 #include "util.h"
 #include "utilstrencodings.h"
+#include "net.h"
+#include "base58.h"
 
 #include <assert.h>
 
@@ -87,6 +89,7 @@ public:
     CMainParams()
     {
         networkID = CBaseChainParams::MAIN;
+        vTreasuryRewardAddress = "XTH6pNz7S68oWEaBtR6vt7zMz9JkCjSsyc";
         strNetworkID = "main";
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -175,7 +178,21 @@ public:
         return data;
     }
 };
-static CMainParams mainParams;
+
+std::string CChainParams::GetTreasuryRewardAddressAtHeight(int nHeight) const{
+    return vTreasuryRewardAddress;
+}
+
+CScript CChainParams::GetTreasuryRewardScriptAtHeight(int nHeight) const
+{
+    CBitcoinAddress address(GetTreasuryRewardAddressAtHeight(nHeight).c_str());
+    assert(address.IsValid());
+    CScript script = GetScriptForDestination(address.Get());
+    return script;
+    
+}
+
+    static CMainParams mainParams;
 
 /**
  * Testnet (v3)
