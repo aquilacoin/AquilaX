@@ -232,8 +232,9 @@ public:
         printf("genesis.hashMerkleRoot = %s\n", genesis.hashMerkleRoot.ToString().c_str());
         hashGenesisBlock = genesis.GetHash();
         assert(hashGenesisBlock == uint256("0x00000175eaf60f51531b04df3f5926282ba0fc46e9327b0105f44c12ef46ed0a"));
-        vFixedSeeds.clear();
-        vSeeds.clear();
+        vSeeds.push_back(CDNSSeedData("108.224.49.202", "108.224.49.202"));
+        //vFixedSeeds.clear();
+        //vSeeds.clear();
 
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 98);
