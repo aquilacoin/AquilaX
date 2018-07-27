@@ -1681,7 +1681,7 @@ int64_t GetTreasuryAward(int nHeight)
 {
     if (IsTreasuryBlock(nHeight)) {
         return 1.5 * COIN; //1.5 on very first block
-    } else if (nHeight > 70000 && nHeight <= 100000) {
+    } else if (nHeight > 22000 && nHeight <= 100000) { //Was 70k
         return 1.5 * COIN; //1.5 on start 5%
     } else if (nHeight >= 100000) {
         return 1 * COIN; //1 coins till end at 5%
