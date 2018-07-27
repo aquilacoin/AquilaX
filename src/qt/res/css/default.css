@@ -35,7 +35,7 @@ QMenu {
 }
 
 QMenu::item {
-	color:#333;
+	color:#fff;
 }
 
 QMenu::item:selected {
@@ -65,11 +65,6 @@ QToolBar > QToolButton:checked {
 	background-color: #fff;
 	color:#333;
 	font-weight:bold;
-}
-
-QToolBar > QToolButton:hover {
-	background-color: #fff;
-	color: #333;
 }
 
 QMessageBox {
@@ -206,11 +201,13 @@ QPushButton { /* Global Button Style */
 
 QPushButton:hover {
 	background-color: #f2f2f2;
+	font: #333;
 }
 
 QPushButton:pressed {
 	background-color: #f2f2f2;
 	border:1px solid #000000;
+	font: #333;
 }
 
 /* Special handling for statusbar-icons (which are partly QPushButtons) */
@@ -228,10 +225,12 @@ QPushButton#labelEncryptionIcon, QPushButton#labelConnectionsIcon {
 
 QSpinBox::up-button:hover {
 	background-color: #f2f2f2;
+	color: #818181;
 }
 
 QSpinBox::down-button:hover {
 	background-color: #f2f2f2;
+	color: #818181;
 }
 
 QComboBox { /* Dropdown Menus */
@@ -360,12 +359,13 @@ QHeaderView { /* Table Header */
 QHeaderView::section { /* Table Header Sections */
 	qproperty-alignment:center;
 	background-color: #f2f2f2;
-	color:#fff;
+	color:#333;
 	min-height:25px;
 	font-weight:bold;
 	font-size:11px;
 	border:0;
-	border-right:1px solid #fff;
+	border-right:1px solid #333;
+	border-bottom:1px solid #333;
 	padding-left:5px;
 	padding-right:5px;
 	padding-top:2px;
@@ -1174,12 +1174,12 @@ QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget::item {
 }
 
 QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget::item:selected { /* Coin Control Item (selected) */
-	background-color:#f2f2f2;
+	background-color:#010736;
 	color:#fff;
 }
 
 QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget::item:checked { /* Coin Control Item (checked) */
-	background-color:#f2f2f2;
+	background-color:#010736;
 	color:#fff;
 }
 
