@@ -89,7 +89,7 @@ public:
     CMainParams()
     {
         networkID = CBaseChainParams::MAIN;
-        vTreasuryRewardAddress = "XTH6pNz7S68oWEaBtR6vt7zMz9JkCjSsyc";
+        vTreasuryRewardAddress = "gjdnwwbCw1QHGUz948rj9u7pzwZZ4iCnmR";
         strNetworkID = "main";
         /**
          * The message start string is designed to be unlikely to occur in normal data.
