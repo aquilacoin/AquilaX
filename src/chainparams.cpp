@@ -204,6 +204,7 @@ public:
     {
         networkID = CBaseChainParams::TESTNET;
         strNetworkID = "test";
+        const char* pszTimestamp = "Tfinch was here 7/27/2018";
         pchMessageStart[0] = 0x4a;
         pchMessageStart[1] = 0x2d;
         pchMessageStart[2] = 0x32;
@@ -223,11 +224,12 @@ public:
         nMaxMoneyOut = 21000000 * COIN;
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
-        genesis.nTime = 1516926684;
-        genesis.nNonce = 21256609;
+        genesis.nTime = 1532705513;
+        genesis.nNonce = 348150;
 
         hashGenesisBlock = genesis.GetHash();
-       // assert(hashGenesisBlock == uint256("0x000008467c3a9c587533dea06ad9380cded3ed32f9742a6c0c1aebc21bf2bc9b"));
+        assert(hashGenesisBlock == uint256("0x00000121e460c9d7eb199fc28b0392800d2df3d7127ab7bf4adde7bff3297ede"));
+        assert(genesis.hashMerkleRoot == uint256("0xf131f66f40d228ffc48668259a6863683301d18d9c65bb3ec44d45dfd4dced97"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
