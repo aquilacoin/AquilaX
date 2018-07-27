@@ -204,7 +204,7 @@ public:
     {
         networkID = CBaseChainParams::TESTNET;
         strNetworkID = "test";
-        const char* pszTimestamp = "Tfinch was here 7/27/2018";
+        const char* pszTimestamp = "$22 Billion Wiped Out of Crypto Market in 24 Hours as Bitcoin Drops Under $6,400";
         pchMessageStart[0] = 0x4a;
         pchMessageStart[1] = 0x2d;
         pchMessageStart[2] = 0x32;
@@ -224,13 +224,12 @@ public:
         nMaxMoneyOut = 21000000 * COIN;
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
-        genesis.nTime = 1532705513;
-        genesis.nNonce = 348150;
+        genesis.nTime = 1535155200;
+        genesis.nNonce = 1432588;
 
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x00000121e460c9d7eb199fc28b0392800d2df3d7127ab7bf4adde7bff3297ede"));
-        assert(genesis.hashMerkleRoot == uint256("0xf131f66f40d228ffc48668259a6863683301d18d9c65bb3ec44d45dfd4dced97"));
-
+        assert(hashGenesisBlock == uint256("0x00000175eaf60f51531b04df3f5926282ba0fc46e9327b0105f44c12ef46ed0a"));
+        assert(genesis.hashMerkleRoot == uint256("0x37de3c3f9c16a2406150704193382cf381344fb90b1e470f98fbf903d73dbb6a"));
         vFixedSeeds.clear();
         vSeeds.clear();
 
