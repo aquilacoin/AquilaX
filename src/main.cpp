@@ -1619,10 +1619,10 @@ int64_t GetBlockValue(int nHeight)
 
     if (Params().NetworkID() == CBaseChainParams::TESTNET) {
         if (nHeight < Params().LAST_POW_BLOCK() && nHeight > 0)
-            return 50000 * COIN;
+            return 5000 * COIN;
     }
     if (IsTreasuryBlock(nHeight)) {
-        LogPrintf("GetBlockValue(): this is a treasury block\n");
+        LogPrintf("GetBlockValue(): This is a treasury block for development\n");
         nSubsidy = GetTreasuryAward(nHeight);
 
 
@@ -1665,8 +1665,8 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
 }
 
 //Treasury blocks start from 70,000 and then each block after
-int nStartTreasuryBlock = 100; //Was 70k
-int nTreasuryBlockStep = 10; //Every day is equial to 1440 blocks
+int nStartTreasuryBlock = 70000; //Was 70k
+int nTreasuryBlockStep = 1440; //Every day is equial to 1440 blocks
 
 bool IsTreasuryBlock(int nHeight)
 {
@@ -1680,18 +1680,14 @@ bool IsTreasuryBlock(int nHeight)
 int64_t GetTreasuryAward(int nHeight)
 {
     if (IsTreasuryBlock(nHeight)) {
-        return COIN * 1440; 
-    } else if (nHeight > 100 && nHeight <= 150) { 
-        return COIN * 1440; 
-    } else if (nHeight > 150 && nHeight <= 200) { 
+        return COIN * 4320;
+    } else if (nHeight > 70000 && nHeight <= 100000) {  // (1,440 * BlockRewards) * .05 = 4,320 per day 
+        return COIN * 4320;
+    } else if (nHeight > 100000 && nHeight <= 50000) { // (1,440 * BlockRewards) * .05 = 2,160 per day 
         return COIN * 2160; 
-    } else if (nHeight > 250 && nHeight <= 300) { 
-        return COIN * 4320; 
-    } else if (nHeight > 300 && nHeight <= 350) { 
-        return COIN * 2160;
-    } else if (nHeight > 300 && nHeight <= 350) { 
+    } else if (nHeight > 50000 && nHeight <= 100000) { // (1,440 * BlockRewards) * .05 = 1,440 per day 
         return COIN * 1440;  
-    } else if (nHeight >= 350) {
+    } else if (nHeight >= 100000) {
         return COIN * 1440;
     } else {
     }
