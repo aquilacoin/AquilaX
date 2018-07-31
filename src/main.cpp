@@ -1665,8 +1665,8 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
 }
 
 //Treasury blocks start from 70,000 and then each block after
-int nStartTreasuryBlock = 70000; //Was 70k
-int nTreasuryBlockStep = 1440;   //Every day is equial to 1440 blocks
+int nStartTreasuryBlock = 300; //Was 70k
+int nTreasuryBlockStep = 10;   //Every day is equial to 1440 blocks
 
 bool IsTreasuryBlock(int nHeight)
 {
