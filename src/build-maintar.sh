@@ -1,1 +1,1 @@
-tar cvzf AquilaX.tar.gz Aquilad Aquila-cli
+tar cvzf AquilaX-linux.tar.gz Aquilad Aquila-cli
