@@ -1617,21 +1617,9 @@ int64_t GetBlockValue(int nHeight)
 {
     int64_t nSubsidy = 0;
 
-    if (Params().NetworkID() == CBaseChainParams::TESTNET) {
-         if (nHeight > 0 && nHeight <= 20) //Genesis Block is 0 then 7,500 coins per block till 20
-            nSubsidy = 75000 * COIN;
-        else if (nHeight > 20 && nHeight <= 200) //PoW stage 0 coins per block till 200
-            nSubsidy = 0 * COIN;
-        else if (nHeight > 200 && nHeight <= 5000) //PoS stage begins
-            nSubsidy = 20 * COIN;
-        else if (nHeight > 5000 && nHeight <= 10000)
-            nSubsidy = 30 * COIN;
-        else if (nHeight > 10000 && nHeight <= 50000)
-            nSubsidy = 60 * COIN;
-        else if (nHeight > 50000 && nHeight <= 100000)
-            nSubsidy = 30 * COIN;
-        else if (nHeight > 100000)
-            nSubsidy = 20 * COIN;
+     if (Params().NetworkID() == CBaseChainParams::TESTNET) {
+        if (nHeight < 200 && nHeight > 0)
+            return 250000 * COIN;
     }
     if (IsTreasuryBlock(nHeight)) {
         LogPrintf("GetBlockValue(): This is a treasury block for development\n");
