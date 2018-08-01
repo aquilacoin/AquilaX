@@ -217,9 +217,9 @@ public:
         nToCheckBlockUpgradeMajority = 100;
         nMinerThreads = 0;
         nTargetTimespan = 1 * 60;
-        nTargetSpacing = .02 * 60;
+        nTargetSpacing = .5 * 60;
         nLastPOWBlock = 200;
-        nMaturity = 15;
+        nMaturity = 1;
         nMasternodeCountDrift = 4;
         nModifierUpdateBlock = 1;
         nMaxMoneyOut = 21000000 * COIN; //Was 21000000
