@@ -1617,9 +1617,9 @@ int64_t GetBlockValue(int nHeight)
 {
     int64_t nSubsidy = 0;
 
-     if (Params().NetworkID() == CBaseChainParams::TESTNET) {
+    if (Params().NetworkID() == CBaseChainParams::TESTNET) {
         if (nHeight < 200 && nHeight > 0)
-            return 250000 * COIN;
+            return 5000 * COIN;
     }
     if (IsTreasuryBlock(nHeight)) {
         LogPrintf("GetBlockValue(): This is a treasury block for development\n");
@@ -1680,22 +1680,36 @@ bool IsTreasuryBlock(int nHeight)
 int64_t GetTreasuryAward(int nHeight)
 {
     
+   //Testnet For Dev Fee
     if (IsTreasuryBlock(nHeight)) {
         return COIN * 4320;
-    } else if (nHeight > 200 && nHeight <= 300)
-    //} else if (nHeight > 70000 && nHeight <= 100000) {  // (1,440 * BlockRewards) * .05 = 4,320 per day 
+    } else if (nHeight > 200 && nHeight <= 500) { // (1,440 * BlockRewards) * .05 = 4,320 per day
         return COIN * 4320;
-    } else if (nHeight > 300 && nHeight <= 400)
-    //} else if (nHeight > 100000 && nHeight <= 50000) { // (1,440 * BlockRewards) * .05 = 2,160 per day 
+    } else if (nHeight > 500 && nHeight <= 1000) { // (1,440 * BlockRewards) * .05 = 2,160 per day
+        return COIN * 2160;
+    } else if (nHeight > 1000 && nHeight <= 1500) { // (1,440 * BlockRewards) * .05 = 1,440 per day
+        return COIN * 1440;
+    } else if (nHeight >= 1500) {
+        return COIN * 1440;
+    } else {
+    }
+    return 0;
+
+    /*
+    if (IsTreasuryBlock(nHeight)) {
+        return COIN * 4320;
+    } else if (nHeight > 70000 && nHeight <= 100000) {  // (1,440 * BlockRewards) * .05 = 4,320 per day 
+        return COIN * 4320;
+    } else if (nHeight > 100000 && nHeight <= 50000) { // (1,440 * BlockRewards) * .05 = 2,160 per day 
         return COIN * 2160; 
-    } else if (nHeight > 400 && nHeight <= 100000)
-    //} else if (nHeight > 50000 && nHeight <= 100000) { // (1,440 * BlockRewards) * .05 = 1,440 per day 
+    } else if (nHeight > 50000 && nHeight <= 100000) { // (1,440 * BlockRewards) * .05 = 1,440 per day 
         return COIN * 1440;  
     } else if (nHeight >= 100000) {
         return COIN * 1440;
     } else {
     }
     return 0;
+	*/
 	
 }
 
