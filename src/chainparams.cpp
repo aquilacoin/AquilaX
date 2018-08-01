@@ -89,7 +89,7 @@ public:
     CMainParams()
     {
         networkID = CBaseChainParams::MAIN;
-        vTreasuryRewardAddress = "ghwxGv6QRy8aaYeQysRyfJL6MXdF7Eg3zc"; //Testnet Address ghwxGv6QRy8aaYeQysRyfJL6MXdF7Eg3zc Live addy 8VUNzTU1MjNUENcNLaoqBnzXFX5F8Kp3GB
+        vTreasuryRewardAddress = "gfV8H7ZF1DvxuiJVQHbDRffWRV7SvdZv4P"; //Testnet Address ghwxGv6QRy8aaYeQysRyfJL6MXdF7Eg3zc Live addy 8VUNzTU1MjNUENcNLaoqBnzXFX5F8Kp3GB
         strNetworkID = "main";
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -203,6 +203,7 @@ public:
     CTestNetParams()
     {
         networkID = CBaseChainParams::TESTNET;
+        vTreasuryRewardAddress = "gfV8H7ZF1DvxuiJVQHbDRffWRV7SvdZv4P";
         strNetworkID = "test";
         const char* pszTimestamp = "$22 Billion Wiped Out of Crypto Market in 24 Hours as Bitcoin Drops Under $6,400";
         pchMessageStart[0] = 0x4a;
