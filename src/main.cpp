@@ -1618,8 +1618,20 @@ int64_t GetBlockValue(int nHeight)
     int64_t nSubsidy = 0;
 
     if (Params().NetworkID() == CBaseChainParams::TESTNET) {
-        if (nHeight < Params().LAST_POW_BLOCK() && nHeight > 0)
-            return 5000 * COIN;
+         if (nHeight > 0 && nHeight <= 20) //Genesis Block is 0 then 7,500 coins per block till 20
+            nSubsidy = 75000 * COIN;
+        else if (nHeight > 20 && nHeight <= 200) //PoW stage 0 coins per block till 200
+            nSubsidy = 0 * COIN;
+        else if (nHeight > 200 && nHeight <= 5000) //PoS stage begins
+            nSubsidy = 20 * COIN;
+        else if (nHeight > 5000 && nHeight <= 10000)
+            nSubsidy = 30 * COIN;
+        else if (nHeight > 10000 && nHeight <= 50000)
+            nSubsidy = 60 * COIN;
+        else if (nHeight > 50000 && nHeight <= 100000)
+            nSubsidy = 30 * COIN;
+        else if (nHeight > 100000)
+            nSubsidy = 20 * COIN;
     }
     if (IsTreasuryBlock(nHeight)) {
         LogPrintf("GetBlockValue(): This is a treasury block for development\n");
@@ -1665,8 +1677,8 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
 }
 
 //Treasury blocks start from 70,000 and then each block after
-int nStartTreasuryBlock = 300; //Was 70k
-int nTreasuryBlockStep = 10;   //Every day is equial to 1440 blocks
+int nStartTreasuryBlock = 200; //Was 70k
+int nTreasuryBlockStep = 5;   //Every day is equial to 1440 blocks
 
 bool IsTreasuryBlock(int nHeight)
 {
@@ -1679,36 +1691,24 @@ bool IsTreasuryBlock(int nHeight)
 }
 int64_t GetTreasuryAward(int nHeight)
 {
-	//Testnet For Dev Fee
+    
     if (IsTreasuryBlock(nHeight)) {
         return COIN * 4320;
-    } else if (nHeight > 200 && nHeight <= 500) { // (1,440 * BlockRewards) * .05 = 4,320 per day
+    } else if (nHeight > 200 && nHeight <= 300)
+    //} else if (nHeight > 70000 && nHeight <= 100000) {  // (1,440 * BlockRewards) * .05 = 4,320 per day 
         return COIN * 4320;
-    } else if (nHeight > 500 && nHeight <= 1000) { // (1,440 * BlockRewards) * .05 = 2,160 per day
-        return COIN * 2160;
-    } else if (nHeight > 1000 && nHeight <= 1500) { // (1,440 * BlockRewards) * .05 = 1,440 per day
-        return COIN * 1440;
-    } else if (nHeight >= 1500) {
-        return COIN * 1440;
-    } else {
-    }
-    return 0;
-
-    /*
-    if (IsTreasuryBlock(nHeight)) {
-        return COIN * 4320;
-    } else if (nHeight > 70000 && nHeight <= 100000) {  // (1,440 * BlockRewards) * .05 = 4,320 per day 
-        return COIN * 4320;
-    } else if (nHeight > 100000 && nHeight <= 50000) { // (1,440 * BlockRewards) * .05 = 2,160 per day 
+    } else if (nHeight > 300 && nHeight <= 400)
+    //} else if (nHeight > 100000 && nHeight <= 50000) { // (1,440 * BlockRewards) * .05 = 2,160 per day 
         return COIN * 2160; 
-    } else if (nHeight > 50000 && nHeight <= 100000) { // (1,440 * BlockRewards) * .05 = 1,440 per day 
+    } else if (nHeight > 400 && nHeight <= 100000)
+    //} else if (nHeight > 50000 && nHeight <= 100000) { // (1,440 * BlockRewards) * .05 = 1,440 per day 
         return COIN * 1440;  
     } else if (nHeight >= 100000) {
         return COIN * 1440;
     } else {
     }
     return 0;
-	*/
+	
 }
 
 bool IsInitialBlockDownload()
