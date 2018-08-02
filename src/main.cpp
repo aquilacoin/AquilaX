@@ -1619,6 +1619,7 @@ int64_t GetBlockValue(int nHeight)
 
     if (Params().NetworkID() == CBaseChainParams::TESTNET) {
         if (nHeight < 10000000000000 && nHeight > 0)
+            return 100 * COIN;
     }
     if (IsTreasuryBlock(nHeight)) {
         LogPrintf("GetBlockValue(): This is a treasury block for development\n");
