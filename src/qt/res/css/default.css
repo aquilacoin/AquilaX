@@ -7,7 +7,7 @@ WalletFrame {
 }
 
 QStatusBar {
-	background-color: #A9A9A9;
+	background-color: #ffffff;
 	border: 0px solid #fff;
 	border-style: none;
 }
@@ -188,7 +188,7 @@ QPushButton { /* Global Button Style */
 	border-style: outset;
 	border-color: #010736;
 	border-radius: 2px;
-	color:#A9A9A9;
+	color:#ffffff;
 	font-size:12px;
 	font-weight:bold;
 	padding-left:25px;
@@ -426,7 +426,7 @@ QScrollBar { /* Scroll Bar */
 
 QScrollBar:vertical { /* Vertical Scroll Bar Attributes */
 	border:0;
-	background:#A9A9A9;
+	background:#ffffff;
 	width:18px;
 	margin:18px 0px 18px 0px;
 }
@@ -443,7 +443,7 @@ QScrollBar::handle:vertical:pressed { /* Scroll Bar Slider - vertical */
 
 QScrollBar:horizontal { /* Horizontal Scroll Bar Attributes */
 	border:0;
-	background:#A9A9A9;
+	background:#ffffff;
 	height:18px;
 	margin:0px 18px 0px 18px;
 }
@@ -591,7 +591,7 @@ QDialog .QTabWidget QTabBar::tab:last {
 }
 
 QDialog .QTabWidget QTabBar::tab:selected, QDialog .QTabWidget QTabBar::tab:hover {
-	background-color:#A9A9A9;
+	background-color:#ffffff;
 	color:#333;
 }
 
@@ -806,7 +806,7 @@ QFrame[frameShape="4"] { /* QFrame::HLine == 0x0004 */
 QLabel#labelOverviewHeaderLeft {
 	font-weight:bold;
 	font-size:20px;
-	background-color:#A9A9A9;
+	background-color:#ffffff;
 }
 
 QLabel#labelOverviewHeaderRight {
@@ -817,34 +817,34 @@ QLabel#labelOverviewHeaderRight {
 
 QWidget .QFrame#frame_Header { /* Header with Page-Title and PIVX-image */
 	min-width:400px;
-	background-color:#A9A9A9;
+	background-color:#ffffff;
 }
 
 QWidget .QFrame#frame_BG { /* Background */
 	min-width:400px;
-	/* background-color:#A9A9A9; */
+	/* background-color:#ffffff; */
 }
 
 /**************************** OVERVIEW SCREEN *******************************************/
 
 QWidget .QFrame#frame_Space { /* Space between Header and Content */
 	min-width:400px;
-	/* background-color:#A9A9A9; */
+	/* background-color:#ffffff; */
 }
 
 QWidget .QFrame#frame_Content { /* Actual Content */
 	min-width:400px;
-	/* background-color:#A9A9A9; */
+	/* background-color:#ffffff; */
 }
 
 QWidget .QFrame#frameBalances { /* Upper left side */
 	min-width:400px;
-	/* background-color:#A9A9A9; */
+	/* background-color:#ffffff; */
 }
 
 QWidget .QFrame#frame_RecentTransactions { /* Right side */
 	min-width:400px;
-	/* background-color:#A9A9A9; */
+	/* background-color:#ffffff; */
 }
 
 QWidget .QFrame#frameBalances > .QLabel {
@@ -951,15 +951,15 @@ QDialog#SendCoinsDialog {
 }
 
 QDialog#SendCoinsDialog .QFrame#frameCoinControl { /* Coin Control Section */
-	background-color:#A9A9A9;
+	background-color:#ffffff;
 }
 
 QDialog#SendCoinsDialog .QFrame#frameFee { /* Coin Control Section */
-	background-color:#A9A9A9;
+	background-color:#ffffff;
 }
 
 QDialog#SendCoinsDialog .QFrame#frame_Send { /* Coin Control Section */
-	background-color:#A9A9A9;
+	background-color:#ffffff;
 	margin-bottom:6px;
 }
 
@@ -1000,7 +1000,7 @@ QDialog#SendCoinsDialog .QFrame#frameCoinControl .QLabel#labelCoinControlChangeL
 }
 
 QDialog#SendCoinsDialog .QScrollArea#scrollArea .QWidget#scrollAreaWidgetContents { /* Send To Widget */
-	background-color:#A9A9A9;
+	background-color:#ffffff;
 }
 
 QDialog#SendCoinsDialog .QCheckBox#checkSwiftTX { /* SwiftTX Checkbox */
@@ -1046,7 +1046,7 @@ QStackedWidget#SendCoinsEntry .QToolButton { /* General Settings for Pay To Icon
 	border-style: outset;
 	border-color: #010736;
 	border-radius: 2px;
-	color:#A9A9A9;
+	color:#ffffff;
 	font-size:12px;
 	font-weight:bold;
 	margin: 2px;
@@ -1166,7 +1166,7 @@ QDialog#CoinControlDialog QHeaderView::section:first { /* Bug Fix: the number "1
 
 QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget { /* Coin Control Widget Container */
 	outline:0;
-	background-color:#A9A9A9;
+	background-color:#ffffff;
 	border:1px solid #333;
 }
 
@@ -1212,11 +1212,11 @@ QWidget#ReceiveCoinsDialog {
 }
 
 QWidget#ReceiveCoinsDialog .QFrame#frame {
-	background-color:#A9A9A9;
+	background-color:#ffffff;
 }
 
 QWidget#ReceiveCoinsDialog .QFrame#frame2 {
-	background-color:#A9A9A9;
+	background-color:#ffffff;
 }
 
 QWidget#ReceiveCoinsDialog .QFrame#frame2  > .QLabel { /* Receive Coin Labels */
@@ -1292,11 +1292,11 @@ QDialog#TransactionDescDialog QTextEdit { /* Contents of Receive Coin Dialog */
 /**************************** MASTERNODE LIST *******************************************/
 
 QWidget#MasternodeList {
-	background-color:#A9A9A9;
+	background-color:#ffffff;
 }
 
 QWidget#MasternodeList .QFrame#frameList {
-	background-color:#A9A9A9;
+	background-color:#ffffff;
 }
 
 /********************************* CALENDAR WIDGET **************************************/
