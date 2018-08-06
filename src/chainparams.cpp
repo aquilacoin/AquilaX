@@ -11,6 +11,8 @@
 #include "random.h"
 #include "util.h"
 #include "utilstrencodings.h"
+#include "net.h"
+#include "base58.h"
 
 #include <assert.h>
 
@@ -65,11 +67,11 @@ static const Checkpoints::CCheckpointData data = {
 };
 
 static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
-    boost::assign::map_list_of(0, uint256("0x001"));
+    boost::assign::map_list_of(0, uint256("0x00000175eaf60f51531b04df3f5926282ba0fc46e9327b0105f44c12ef46ed0a"));
 
 static const Checkpoints::CCheckpointData dataTestnet = {
     &mapCheckpointsTestnet,
-    1740710,
+    1531237199,
     0,
     250};
 
@@ -87,6 +89,7 @@ public:
     CMainParams()
     {
         networkID = CBaseChainParams::MAIN;
+        vTreasuryRewardAddress = "8VUNzTU1MjNUENcNLaoqBnzXFX5F8Kp3GB"; //Testnet Address ghwxGv6QRy8aaYeQysRyfJL6MXdF7Eg3zc Live addy 8VUNzTU1MjNUENcNLaoqBnzXFX5F8Kp3GB
         strNetworkID = "main";
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -175,7 +178,21 @@ public:
         return data;
     }
 };
-static CMainParams mainParams;
+
+std::string CChainParams::GetTreasuryRewardAddressAtHeight(int nHeight) const{
+    return vTreasuryRewardAddress;
+}
+
+CScript CChainParams::GetTreasuryRewardScriptAtHeight(int nHeight) const
+{
+    CBitcoinAddress address(GetTreasuryRewardAddressAtHeight(nHeight).c_str());
+    assert(address.IsValid());
+    CScript script = GetScriptForDestination(address.Get());
+    return script;
+    
+}
+
+    static CMainParams mainParams;
 
 /**
  * Testnet (v3)
@@ -186,7 +203,9 @@ public:
     CTestNetParams()
     {
         networkID = CBaseChainParams::TESTNET;
+        vTreasuryRewardAddress = "gmFo8NV5mrMsMChA7RWcsSeuDyAfLrHs2J";
         strNetworkID = "test";
+        const char* pszTimestamp = "$22 Billion Wiped Out of Crypto Market in 24 Hours as Bitcoin Drops Under $6,400";
         pchMessageStart[0] = 0x4a;
         pchMessageStart[1] = 0x2d;
         pchMessageStart[2] = 0x32;
@@ -198,36 +217,33 @@ public:
         nToCheckBlockUpgradeMajority = 100;
         nMinerThreads = 0;
         nTargetTimespan = 1 * 60;
-        nTargetSpacing = 2 * 60;
+        nTargetSpacing = .5 * 60;
         nLastPOWBlock = 200;
-        nMaturity = 15;
+        nMaturity = 1;
         nMasternodeCountDrift = 4;
         nModifierUpdateBlock = 1;
-        nMaxMoneyOut = 21000000 * COIN;
+        nMaxMoneyOut = 21000000 * COIN; //Was 21000000
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
-        genesis.nTime = 1516926684;
-        genesis.nNonce = 21256609;
+        genesis.nTime = 1531237199;
+        genesis.nNonce = 1432588;
 
+
+        printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
+        printf("genesis.hashMerkleRoot = %s\n", genesis.hashMerkleRoot.ToString().c_str());
         hashGenesisBlock = genesis.GetHash();
-       // assert(hashGenesisBlock == uint256("0x000008467c3a9c587533dea06ad9380cded3ed32f9742a6c0c1aebc21bf2bc9b"));
-
+        assert(hashGenesisBlock == uint256("0x00000175eaf60f51531b04df3f5926282ba0fc46e9327b0105f44c12ef46ed0a"));
+        
         vFixedSeeds.clear();
         vSeeds.clear();
 
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 98);
-
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 12);
-
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 108);
-
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
-
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
-
         base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x80)(0x00)(0x00)(0x01).convert_to_container<std::vector<unsigned char> >();
-
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
 
         fMiningRequiresPeers = true;
