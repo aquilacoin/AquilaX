@@ -1,6 +1,6 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2016 The Dash developers
-// Copyright (c) 2017-2018 The CALEONX developers
+// Copyright (c) 2017-2018 The AquilaX developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -200,7 +200,7 @@ public:
         void CopyFrom(const UnlockContext& rhs);
     };
 
-    UnlockContext requestUnlock(AskPassphraseDialog::Context context, bool relock = false);
+    UnlockContext requestUnlock(bool relock = false);
 
     bool getPubKey(const CKeyID& address, CPubKey& vchPubKeyOut) const;
     bool isMine(CBitcoinAddress address);
