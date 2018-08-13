@@ -119,35 +119,35 @@ public:
 #include "overviewpage.moc"
 
 OverviewPage::OverviewPage(QWidget* parent) : QWidget(parent),
-                                              ui(new Ui::OverviewPage),
-                                              clientModel(0),
-                                              walletModel(0),
-                                              currentBalance(-1),
-                                              currentUnconfirmedBalance(-1),
-                                              currentImmatureBalance(-1),
-                                              currentWatchOnlyBalance(-1),
-                                              currentWatchUnconfBalance(-1),
-                                              currentWatchImmatureBalance(-1),
-                                              txdelegate(new TxViewDelegate()),
-                                              filter(0)
+											  ui(new Ui::OverviewPage),
+											  clientModel(0),
+											  walletModel(0),
+											  currentBalance(-1),
+											  currentUnconfirmedBalance(-1),
+											  currentImmatureBalance(-1),
+											  currentWatchOnlyBalance(-1),
+											  currentWatchUnconfBalance(-1),
+											  currentWatchImmatureBalance(-1),
+											  txdelegate(new TxViewDelegate()),
+											  filter(0)
 {
-    nDisplayUnit = 0; // just make sure it's not unitialized
-    ui->setupUi(this);
+	nDisplayUnit = 0; // just make sure it's not unitialized
+	ui->setupUi(this);
 
-    // Recent transactions
-    ui->listTransactions->setItemDelegate(txdelegate);
-    ui->listTransactions->setIconSize(QSize(DECORATION_SIZE, DECORATION_SIZE));
-    ui->listTransactions->setMinimumHeight(NUM_ITEMS * (DECORATION_SIZE + 2));
-    ui->listTransactions->setAttribute(Qt::WA_MacShowFocusRect, false);
+	// Recent transactions
+	ui->listTransactions->setItemDelegate(txdelegate);
+	ui->listTransactions->setIconSize(QSize(DECORATION_SIZE, DECORATION_SIZE));
+	ui->listTransactions->setMinimumHeight(NUM_ITEMS * (DECORATION_SIZE + 2));
+	ui->listTransactions->setAttribute(Qt::WA_MacShowFocusRect, false);
 
-    connect(ui->listTransactions, SIGNAL(clicked(QModelIndex)), this, SLOT(handleTransactionClicked(QModelIndex)));
+	connect(ui->listTransactions, SIGNAL(clicked(QModelIndex)), this, SLOT(handleTransactionClicked(QModelIndex)));
 
-    // init "out of sync" warning labels
-    ui->labelWalletStatus->setText("(" + tr("out of sync") + ")");
-    ui->labelTransactionsStatus->setText("(" + tr("out of sync") + ")");
+	// init "out of sync" warning labels
+	ui->labelWalletStatus->setText("(" + tr("out of sync") + ")");
+	ui->labelTransactionsStatus->setText("(" + tr("out of sync") + ")");
 
-    // start with displaying the "out of sync" warnings
-    showOutOfSyncWarning(true);
+	// start with displaying the "out of sync" warnings
+	showOutOfSyncWarning(true);
 }
 
 void OverviewPage::handleTransactionClicked(const QModelIndex& index)
@@ -159,17 +159,6 @@ void OverviewPage::handleTransactionClicked(const QModelIndex& index)
 OverviewPage::~OverviewPage()
 {
     delete ui;
-}
-
-void OverviewPage::getPercentage(CAmount nUnlockedBalance, QString& sAQXPercentage, QString& szAquilaXPercentage)
-{
-    int nPrecision = 2;
-    double dzPercentage = 0.0;
-
-    double dPercentage = 100.0 - dzPercentage;
-
-    szAquilaXPercentage = "(" + QLocale(QLocale::system()).toString(dzPercentage, 'f', nPrecision) + " %)";
-    sAQXPercentage = "(" + QLocale(QLocale::system()).toString(dPercentage, 'f', nPrecision) + " %)";
 }
 
 void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmedBalance, const CAmount& immatureBalance,
