@@ -12,8 +12,6 @@
 #include "guiconstants.h"
 #include "guiutil.h"
 #include "init.h"
-//#include "obfuscation.h"
-//#include "obfuscationconfig.h"
 #include "optionsmodel.h"
 #include "transactionfilterproxy.h"
 #include "transactionrecord.h"
@@ -155,180 +153,140 @@ filter(0)
 
 void OverviewPage::handleTransactionClicked(const QModelIndex& index)
 {
-    if (filter)
-        emit transactionClicked(filter->mapToSource(index));
+	if (filter)
+		emit transactionClicked(filter->mapToSource(index));
 }
 
 OverviewPage::~OverviewPage()
 {
-    delete ui;
+	delete ui;
 }
 
 void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmedBalance, const CAmount& immatureBalance,
-                              const CAmount& watchOnlyBalance, const CAmount& watchUnconfBalance, const CAmount& watchImmatureBalance)
+	const CAmount& watchOnlyBalance, const CAmount& watchUnconfBalance, const CAmount& watchImmatureBalance)
 {
-    currentBalance = balance;
-    currentUnconfirmedBalance = unconfirmedBalance;
-    currentImmatureBalance = immatureBalance;
-    currentWatchOnlyBalance = watchOnlyBalance;
-    currentWatchUnconfBalance = watchUnconfBalance;
-    currentWatchImmatureBalance = watchImmatureBalance;
+	currentBalance = balance;
+	currentUnconfirmedBalance = unconfirmedBalance;
+	currentImmatureBalance = immatureBalance;
+	currentWatchOnlyBalance = watchOnlyBalance;
+	currentWatchUnconfBalance = watchUnconfBalance;
+	currentWatchImmatureBalance = watchImmatureBalance;
 
-    CAmount nLockedBalance = 0;
-    CAmount nWatchOnlyLockedBalance = 0;
-    if (pwalletMain) {
-        nLockedBalance = pwalletMain->GetLockedCoins();
-        nWatchOnlyLockedBalance = pwalletMain->GetLockedWatchOnlyBalance();
-    }
-    // AQX Balance
-    CAmount nTotalBalance = balance + unconfirmedBalance + nLockedBalance;
-    CAmount caleonxAvailableBalance = balance - immatureBalance;
-    CAmount nTotalWatchBalance = watchOnlyBalance + watchUnconfBalance + watchImmatureBalance;
-    CAmount nUnlockedBalance = nTotalBalance - nLockedBalance - nLockedBalance; // increment nLockedBalance twice because it was added to
-                                                                                // nTotalBalance above
+	// AQX labels
+	ui->labelBalance->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, balance - immatureBalance, false, BitcoinUnits::separatorNever));
+	ui->labelUnconfirmed->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, unconfirmedBalance, false, BitcoinUnits::separatorNever));
+	ui->labelImmature->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, immatureBalance, false, BitcoinUnits::separatorNever));
+	ui->labelTotal->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, balance + unconfirmedBalance, false, BitcoinUnits::separatorNever));
 
-    // Percentages
-    QString szPercentage = "";
-    QString sPercentage = "";
-    getPercentage(nUnlockedBalance, zerocoinBalance, sPercentage, szPercentage);
+	// Watchonly labels
+	ui->labelWatchAvailable->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, watchOnlyBalance, false, BitcoinUnits::separatorNever));
+	ui->labelWatchPending->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, watchUnconfBalance, false, BitcoinUnits::separatorNever));
+	ui->labelWatchImmature->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, watchImmatureBalance, false, BitcoinUnits::separatorNever));
+	ui->labelWatchTotal->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, watchOnlyBalance + watchUnconfBalance + watchImmatureBalance, false, BitcoinUnits::separatorNever));
 
-	// Percentage labels
-    ui->labelAQXPercent->setText(sPercentage);
+	// only show immature (newly mined) balance if it's non-zero, so as not to complicate things
+	// for the non-mining users
+	bool showImmature = immatureBalance != 0;
+	bool showWatchOnlyImmature = watchImmatureBalance != 0;
 
-    // AQX labels
-    ui->labelBalance->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, balance - immatureBalance, false, BitcoinUnits::separatorNever));
-    ui->labelUnconfirmed->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, unconfirmedBalance, false, BitcoinUnits::separatorNever));
-    ui->labelImmature->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, immatureBalance, false, BitcoinUnits::separatorNever));
-    ui->labelTotal->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, balance + unconfirmedBalance, false, BitcoinUnits::separatorNever));
+	// for symmetry reasons also show immature label when the watch-only one is shown
+	ui->labelImmature->setVisible(showImmature || showWatchOnlyImmature);
+	ui->labelImmatureText->setVisible(showImmature || showWatchOnlyImmature);
+	ui->labelWatchImmature->setVisible(showWatchOnlyImmature); // show watch-only immature balance
 
-    // Watchonly labels
-    ui->labelWatchAvailable->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, watchOnlyBalance, false, BitcoinUnits::separatorNever));
-    ui->labelWatchPending->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, watchUnconfBalance, false, BitcoinUnits::separatorNever));
-    ui->labelWatchImmature->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, watchImmatureBalance, false, BitcoinUnits::separatorNever));
-    ui->labelWatchTotal->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, watchOnlyBalance + watchUnconfBalance + watchImmatureBalance, false, BitcoinUnits::separatorNever));
+	static int cachedTxLocks = 0;
 
-        // Only show most balances if they are non-zero for the sake of simplicity
-    QSettings settings;
-    bool settingShowAllBalances = !settings.value("fHideZeroBalances").toBool();
-    bool showSumAvailable = settingShowAllBalances || sumTotalBalance != availableTotalBalance;
-    ui->labelBalanceTextz->setVisible(showSumAvailable);
-    ui->labelBalancez->setVisible(showSumAvailable);
-    bool showAQXAvailable = settingShowAllBalances || AquilaXAvailableBalance != nTotalBalance;
-    bool showWatchOnlyAQXAvailable = watchOnlyBalance != nTotalWatchBalance;
-    bool showAQXPending = settingShowAllBalances || unconfirmedBalance != 0;
-    bool showWatchOnlyAQXPending = watchUnconfBalance != 0;
-    bool showAQXLocked = settingShowAllBalances || nLockedBalance != 0;
-    bool showWatchOnlyAQXLocked = nWatchOnlyLockedBalance != 0;
-    bool showImmature = settingShowAllBalances || immatureBalance != 0;
-    bool showWatchOnlyImmature = watchImmatureBalance != 0;
-    bool showWatchOnly = nTotalWatchBalance != 0;
-    ui->labelBalance->setVisible(showPIVAvailable || showWatchOnlyAQXAvailable);
-    ui->labelBalanceText->setVisible(showAQXAvailable || showWatchOnlyAQXAvailable);
-    ui->labelWatchAvailable->setVisible(showAQXAvailable && showWatchOnly);
-    ui->labelUnconfirmed->setVisible(showAQXPending || showWatchOnlyAQXPending);
-    ui->labelPendingText->setVisible(showAQXPending || showWatchOnlyAQXPending);
-    ui->labelWatchPending->setVisible(showAQXPending && showWatchOnly);
-    ui->labelLockedBalance->setVisible(showAQXLocked || showWatchOnlyAQXLocked);
-    ui->labelLockedBalanceText->setVisible(showAQXLocked || showWatchOnlyAQXLocked);
-    ui->labelWatchLocked->setVisible(showAQXLocked && showWatchOnly);
-    ui->labelImmature->setVisible(showImmature || showWatchOnlyImmature); // for symmetry reasons also show immature label when the watch-only one is shown
-    ui->labelImmatureText->setVisible(showImmature || showWatchOnlyImmature);
-    ui->labelWatchImmature->setVisible(showImmature && showWatchOnly); // show watch-only immature balance
-   
-    static int cachedTxLocks = 0;
-
-    if (cachedTxLocks != nCompleteTXLocks) {
-        cachedTxLocks = nCompleteTXLocks;
-        ui->listTransactions->update();
-    }
+	if (cachedTxLocks != nCompleteTXLocks) {
+		cachedTxLocks = nCompleteTXLocks;
+		ui->listTransactions->update();
+	}
 }
 
 // show/hide watch-only labels
 void OverviewPage::updateWatchOnlyLabels(bool showWatchOnly)
 {
-    ui->labelSpendable->setVisible(showWatchOnly);      // show spendable label (only when watch-only is active)
-    ui->labelWatchonly->setVisible(showWatchOnly);      // show watch-only label
-    ui->labelWatchAvailable->setVisible(showWatchOnly); // show watch-only available balance
-    ui->labelWatchPending->setVisible(showWatchOnly);   // show watch-only pending balance
-    ui->labelWatchLocked->setVisible(showWatchOnly);    // show watch-only total balance
-    ui->labelWatchTotal->setVisible(showWatchOnly);     // show watch-only total balance
+	ui->labelSpendable->setVisible(showWatchOnly);      // show spendable label (only when watch-only is active)
+	ui->labelWatchonly->setVisible(showWatchOnly);      // show watch-only label
+	ui->labelWatchAvailable->setVisible(showWatchOnly); // show watch-only available balance
+	ui->labelWatchPending->setVisible(showWatchOnly);   // show watch-only pending balance
+	ui->labelWatchTotal->setVisible(showWatchOnly);     // show watch-only total balance
 
-    if (!showWatchOnly) {
-        ui->labelWatchImmature->hide();
-    } else {
-        ui->labelBalance->setIndent(20);
-        ui->labelUnconfirmed->setIndent(20);
-        ui->labelLockedBalance->setIndent(20);
-        ui->labelImmature->setIndent(20);
-        ui->labelTotal->setIndent(20);
-    }
+	if (!showWatchOnly) {
+		ui->labelWatchImmature->hide();
+	}
+	else {
+		ui->labelBalance->setIndent(20);
+		ui->labelUnconfirmed->setIndent(20);
+		ui->labelImmature->setIndent(20);
+		ui->labelTotal->setIndent(20);
+	}
 }
 
 void OverviewPage::setClientModel(ClientModel* model)
 {
-    this->clientModel = model;
-    if (model) {
-        // Show warning if this is a prerelease version
-        connect(model, SIGNAL(alertsChanged(QString)), this, SLOT(updateAlerts(QString)));
-        updateAlerts(model->getStatusBarWarnings());
-    }
+	this->clientModel = model;
+	if (model) {
+		// Show warning if this is a prerelease version
+		connect(model, SIGNAL(alertsChanged(QString)), this, SLOT(updateAlerts(QString)));
+		updateAlerts(model->getStatusBarWarnings());
+	}
 }
 
 void OverviewPage::setWalletModel(WalletModel* model)
 {
-    this->walletModel = model;
-    if (model && model->getOptionsModel()) {
-        // Set up transaction list
-        filter = new TransactionFilterProxy();
-        filter->setSourceModel(model->getTransactionTableModel());
-        filter->setLimit(NUM_ITEMS);
-        filter->setDynamicSortFilter(true);
-        filter->setSortRole(Qt::EditRole);
-        filter->setShowInactive(false);
-        filter->sort(TransactionTableModel::Date, Qt::DescendingOrder);
+	this->walletModel = model;
+	if (model && model->getOptionsModel()) {
+		// Set up transaction list
+		filter = new TransactionFilterProxy();
+		filter->setSourceModel(model->getTransactionTableModel());
+		filter->setLimit(NUM_ITEMS);
+		filter->setDynamicSortFilter(true);
+		filter->setSortRole(Qt::EditRole);
+		filter->setShowInactive(false);
+		filter->sort(TransactionTableModel::Date, Qt::DescendingOrder);
 
-        ui->listTransactions->setModel(filter);
-        ui->listTransactions->setModelColumn(TransactionTableModel::ToAddress);
+		ui->listTransactions->setModel(filter);
+		ui->listTransactions->setModelColumn(TransactionTableModel::ToAddress);
 
-        // Keep up to date with wallet
-        setBalance(model->getBalance(), model->getUnconfirmedBalance(), model->getImmatureBalance(),         
-            model->getWatchBalance(), model->getWatchUnconfirmedBalance(), model->getWatchImmatureBalance());
-        connect(model, SIGNAL(balanceChanged(CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)), this,
-            SLOT(setBalance(CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)));
+		// Keep up to date with wallet
+		setBalance(model->getBalance(), model->getUnconfirmedBalance(), model->getImmatureBalance(),
+			model->getWatchBalance(), model->getWatchUnconfirmedBalance(), model->getWatchImmatureBalance());
+		connect(model, SIGNAL(balanceChanged(CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)), this,
+			SLOT(setBalance(CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)));
 
-        connect(model->getOptionsModel(), SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
-        connect(model->getOptionsModel(), SIGNAL(hideZeroBalancesChanged(bool)), this, SLOT(updateDisplayUnit()));
+		connect(model->getOptionsModel(), SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
 
-        updateWatchOnlyLabels(model->haveWatchOnly());
-        connect(model, SIGNAL(notifyWatchonlyChanged(bool)), this, SLOT(updateWatchOnlyLabels(bool)));
-    }
+		updateWatchOnlyLabels(model->haveWatchOnly());
+		connect(model, SIGNAL(notifyWatchonlyChanged(bool)), this, SLOT(updateWatchOnlyLabels(bool)));
+	}
 
-    // update the display unit, to not use the default ("AQX")
-    updateDisplayUnit();
+	// update the display unit, to not use the default ("AQX")
+	updateDisplayUnit();
 }
 
 void OverviewPage::updateDisplayUnit()
 {
-    if (walletModel && walletModel->getOptionsModel()) {
-        nDisplayUnit = walletModel->getOptionsModel()->getDisplayUnit();
-        if (currentBalance != -1)
-            setBalance(currentBalance, currentUnconfirmedBalance, currentImmatureBalance, currentWatchOnlyBalance, currentWatchUnconfBalance, currentWatchImmatureBalance);
+	if (walletModel && walletModel->getOptionsModel()) {
+		nDisplayUnit = walletModel->getOptionsModel()->getDisplayUnit();
+		if (currentBalance != -1)
+			setBalance(currentBalance, currentUnconfirmedBalance, currentImmatureBalance,
+				currentWatchOnlyBalance, currentWatchUnconfBalance, currentWatchImmatureBalance);
 
-        // Update txdelegate->unit with the current unit
-        txdelegate->unit = nDisplayUnit;
+		// Update txdelegate->unit with the current unit
+		txdelegate->unit = nDisplayUnit;
 
-        ui->listTransactions->update();
-    }
+		ui->listTransactions->update();
+	}
 }
 
 void OverviewPage::updateAlerts(const QString& warnings)
 {
-    this->ui->labelAlerts->setVisible(!warnings.isEmpty());
-    this->ui->labelAlerts->setText(warnings);
+	this->ui->labelAlerts->setVisible(!warnings.isEmpty());
+	this->ui->labelAlerts->setText(warnings);
 }
 
 void OverviewPage::showOutOfSyncWarning(bool fShow)
 {
-    ui->labelWalletStatus->setVisible(fShow);
-    ui->labelTransactionsStatus->setVisible(fShow);
+	ui->labelWalletStatus->setVisible(fShow);
+	ui->labelTransactionsStatus->setVisible(fShow);
 }
