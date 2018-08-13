@@ -199,61 +199,61 @@ void MasternodeList::updateMyMasternodeInfo(QString strAlias, QString strAddr, C
 
 void MasternodeList::updateMyNodeList(bool fForce)
 {
-    static int64_t nTimeMyListUpdated = 0;
+	static int64_t nTimeMyListUpdated = 0;
 
-    // automatically update my masternode list only once in MY_MASTERNODELIST_UPDATE_SECONDS seconds,
-    // this update still can be triggered manually at any time via button click
-    int64_t nSecondsTillUpdate = nTimeMyListUpdated + MY_MASTERNODELIST_UPDATE_SECONDS - GetTime();
-    ui->secondsLabel->setText(QString::number(nSecondsTillUpdate));
+	// automatically update my masternode list only once in MY_MASTERNODELIST_UPDATE_SECONDS seconds,
+	// this update still can be triggered manually at any time via button click
+	int64_t nSecondsTillUpdate = nTimeMyListUpdated + MY_MASTERNODELIST_UPDATE_SECONDS - GetTime();
+	ui->secondsLabel->setText(QString::number(nSecondsTillUpdate));
 
-    if (nSecondsTillUpdate > 0 && !fForce) return;
-    nTimeMyListUpdated = GetTime();
+	if (nSecondsTillUpdate > 0 && !fForce) return;
+	nTimeMyListUpdated = GetTime();
 
-    ui->tableWidgetMyMasternodes->setSortingEnabled(false);
-    BOOST_FOREACH (CMasternodeConfig::CMasternodeEntry mne, masternodeConfig.getEntries()) {
-        int nIndex;
-        if(!mne.castOutputIndex(nIndex))
-            continue;
+	ui->tableWidgetMyMasternodes->setSortingEnabled(false);
+	BOOST_FOREACH(CMasternodeConfig::CMasternodeEntry mne, masternodeConfig.getEntries()) {
+		int nIndex;
+		if (!mne.castOutputIndex(nIndex))
+			continue;
 
-        CTxIn txin = CTxIn(uint256S(mne.getTxHash()), uint32_t(nIndex));
-        CMasternode* pmn = mnodeman.Find(txin);
-        updateMyMasternodeInfo(QString::fromStdString(mne.getAlias()), QString::fromStdString(mne.getIp()), pmn);
-    }
-    ui->tableWidgetMyMasternodes->setSortingEnabled(true);
+		CTxIn txin = CTxIn(uint256S(mne.getTxHash()), uint32_t(nIndex));
+		CMasternode* pmn = mnodeman.Find(txin);
+		updateMyMasternodeInfo(QString::fromStdString(mne.getAlias()), QString::fromStdString(mne.getIp()), pmn);
+	}
+	ui->tableWidgetMyMasternodes->setSortingEnabled(true);
 
-    // reset "timer"
-    ui->secondsLabel->setText("0");
+	// reset "timer"
+	ui->secondsLabel->setText("0");
 }
 
 void MasternodeList::on_startButton_clicked()
 {
-    // Find selected node alias
-    QItemSelectionModel* selectionModel = ui->tableWidgetMyMasternodes->selectionModel();
-    QModelIndexList selected = selectionModel->selectedRows();
+	// Find selected node alias
+	QItemSelectionModel* selectionModel = ui->tableWidgetMyMasternodes->selectionModel();
+	QModelIndexList selected = selectionModel->selectedRows();
 
-    if (selected.count() == 0) return;
+	if (selected.count() == 0) return;
 
-    QModelIndex index = selected.at(0);
-    int nSelectedRow = index.row();
-    std::string strAlias = ui->tableWidgetMyMasternodes->item(nSelectedRow, 0)->text().toStdString();
+	QModelIndex index = selected.at(0);
+	int nSelectedRow = index.row();
+	std::string strAlias = ui->tableWidgetMyMasternodes->item(nSelectedRow, 0)->text().toStdString();
 
-    // Display message box
-    QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Confirm masternode start"),
-        tr("Are you sure you want to start masternode %1?").arg(QString::fromStdString(strAlias)),
-        QMessageBox::Yes | QMessageBox::Cancel,
-        QMessageBox::Cancel);
+	// Display message box
+	QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Confirm masternode start"),
+		tr("Are you sure you want to start masternode %1?").arg(QString::fromStdString(strAlias)),
+		QMessageBox::Yes | QMessageBox::Cancel,
+		QMessageBox::Cancel);
 
-    if (retval != QMessageBox::Yes) return;
+	if (retval != QMessageBox::Yes) return;
 
-    WalletModel::EncryptionStatus encStatus = walletModel->getEncryptionStatus();
+	WalletModel::EncryptionStatus encStatus = walletModel->getEncryptionStatus();
 
-    if (encStatus == walletModel->Locked || encStatus == walletModel->UnlockedForAnonymizationOnly) {
-        WalletModel::UnlockContext ctx(walletModel->requestUnlock(AskPassphraseDialog::Context::Unlock_Full));
+	if (encStatus == walletModel->Locked || encStatus == walletModel->UnlockedForAnonymizationOnly) {
+		WalletModel::UnlockContext ctx(walletModel->requestUnlock());
 
-        if (!ctx.isValid()) return; // Unlock wallet was cancelled
+		if (!ctx.isValid()) return; // Unlock wallet was cancelled
 
-        StartAlias(strAlias);
-        return;
+		StartAlias(strAlias);
+		return;
     }
 
     StartAlias(strAlias);
