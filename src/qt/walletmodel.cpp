@@ -29,83 +29,77 @@
 using namespace std;
 
 WalletModel::WalletModel(CWallet* wallet, OptionsModel* optionsModel, QObject* parent) : QObject(parent), wallet(wallet), optionsModel(optionsModel), addressTableModel(0),
-                                                                                         transactionTableModel(0),
-                                                                                         recentRequestsTableModel(0),
-                                                                                         cachedBalance(0), cachedUnconfirmedBalance(0), cachedImmatureBalance(0),
-                                                                                         cachedEncryptionStatus(Unencrypted),
-                                                                                         cachedNumBlocks(0)
+transactionTableModel(0),
+recentRequestsTableModel(0),
+cachedBalance(0), cachedUnconfirmedBalance(0), cachedImmatureBalance(0),
+cachedEncryptionStatus(Unencrypted),
+cachedNumBlocks(0)
 {
-    fHaveWatchOnly = wallet->HaveWatchOnly();
-    fHaveMultiSig = wallet->HaveMultiSig();
-    fForceCheckBalanceChanged = false;
+	fHaveWatchOnly = wallet->HaveWatchOnly();
+	fHaveMultiSig = wallet->HaveMultiSig();
+	fForceCheckBalanceChanged = false;
 
-    addressTableModel = new AddressTableModel(wallet, this);
-    transactionTableModel = new TransactionTableModel(wallet, this);
-    recentRequestsTableModel = new RecentRequestsTableModel(wallet, this);
+	addressTableModel = new AddressTableModel(wallet, this);
+	transactionTableModel = new TransactionTableModel(wallet, this);
+	recentRequestsTableModel = new RecentRequestsTableModel(wallet, this);
 
-    // This timer will be fired repeatedly to update the balance
-    pollTimer = new QTimer(this);
-    connect(pollTimer, SIGNAL(timeout()), this, SLOT(pollBalanceChanged()));
-    pollTimer->start(MODEL_UPDATE_DELAY);
+	// This timer will be fired repeatedly to update the balance
+	pollTimer = new QTimer(this);
+	connect(pollTimer, SIGNAL(timeout()), this, SLOT(pollBalanceChanged()));
+	pollTimer->start(MODEL_UPDATE_DELAY);
 
-    subscribeToCoreSignals();
+	subscribeToCoreSignals();
 }
 
 WalletModel::~WalletModel()
 {
-    unsubscribeFromCoreSignals();
+	unsubscribeFromCoreSignals();
 }
 
 CAmount WalletModel::getBalance(const CCoinControl* coinControl) const
 {
-    if (coinControl) {
-        CAmount nBalance = 0;
-        std::vector<COutput> vCoins;
-        wallet->AvailableCoins(vCoins, true, coinControl);
-        BOOST_FOREACH (const COutput& out, vCoins)
-            if (out.fSpendable)
-                nBalance += out.tx->vout[out.i].nValue;
+	if (coinControl) {
+		CAmount nBalance = 0;
+		std::vector<COutput> vCoins;
+		wallet->AvailableCoins(vCoins, true, coinControl);
+		BOOST_FOREACH(const COutput& out, vCoins)
+			if (out.fSpendable)
+				nBalance += out.tx->vout[out.i].nValue;
 
-        return nBalance;
-    }
+		return nBalance;
+	}
 
-    return wallet->GetBalance();
+	return wallet->GetBalance();
 }
 
 CAmount WalletModel::getUnconfirmedBalance() const
 {
-    return wallet->GetUnconfirmedBalance();
+	return wallet->GetUnconfirmedBalance();
 }
 
 CAmount WalletModel::getImmatureBalance() const
 {
-    return wallet->GetImmatureBalance();
+	return wallet->GetImmatureBalance();
 }
-
-CAmount WalletModel::getLockedBalance() const
-{
-    return wallet->setLockedCoins();
-}
-
 
 bool WalletModel::haveWatchOnly() const
 {
-    return fHaveWatchOnly;
+	return fHaveWatchOnly;
 }
 
 CAmount WalletModel::getWatchBalance() const
 {
-    return wallet->GetWatchOnlyBalance();
+	return wallet->GetWatchOnlyBalance();
 }
 
 CAmount WalletModel::getWatchUnconfirmedBalance() const
 {
-    return wallet->GetUnconfirmedWatchOnlyBalance();
+	return wallet->GetUnconfirmedWatchOnlyBalance();
 }
 
 CAmount WalletModel::getWatchImmatureBalance() const
 {
-    return wallet->GetImmatureWatchOnlyBalance();
+	return wallet->GetImmatureWatchOnlyBalance();
 }
 
 void WalletModel::updateStatus()
