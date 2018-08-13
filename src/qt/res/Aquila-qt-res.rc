@@ -20,7 +20,7 @@ BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
             VALUE "CompanyName",        "Aquila"
-            VALUE "FileDescription",    "Updaed By TFinch"
+            VALUE "FileDescription",    "Aquila Core (OSS GUI client for Aquila)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "Aquila-qt"
             VALUE "LegalCopyright",     COPYRIGHT_STR
