@@ -74,11 +74,6 @@ AskPassphraseDialog::AskPassphraseDialog(Mode mode, QWidget* parent, WalletModel
         break;
     }
 
-    // It doesn't make sense to show the checkbox for sending AQX because you wouldn't check it anyway.
-    if (context == Context::Send_PIV || context == Context::Send_zCALEONX) {
-        ui->anonymizationCheckBox->hide();
-    }
-
     textChanged();
     connect(ui->passEdit1, SIGNAL(textChanged(QString)), this, SLOT(textChanged()));
     connect(ui->passEdit2, SIGNAL(textChanged(QString)), this, SLOT(textChanged()));
