@@ -67,38 +67,40 @@
     </property>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_Master" stretch="0,1">
-      <property name="leftMargin">
-       <number>0</number>
-      </property>
-      <property name="topMargin">
-       <number>0</number>
-      </property>
-      <property name="rightMargin">
-       <number>0</number>
-      </property>
-      <property name="bottomMargin">
+      <property name="margin">
        <number>0</number>
       </property>
       <item>
        <widget class="QFrame" name="frame_Header">
         <layout class="QVBoxLayout" name="verticalLayout_Header" stretch="0">
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
+         <property name="margin">
           <number>0</number>
          </property>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_Header" stretch="0,0">
+          <layout class="QHBoxLayout" name="horizontalLayout_Header" stretch="0,0,0">
            <property name="spacing">
             <number>6</number>
            </property>
+           <item>
+            <widget class="QLabel" name="labelOverview">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>23</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Overview</string>
+             </property>
+            </widget>
+           </item>
            <item>
             <spacer name="horizontalSpacer_Header">
              <property name="orientation">
@@ -178,8 +180,8 @@
                 <property name="geometry">
                  <rect>
                   <x>10</x>
-                  <y>370</y>
-                  <width>446</width>
+                  <y>517</y>
+                  <width>391</width>
                   <height>1</height>
                  </rect>
                 </property>
@@ -199,13 +201,38 @@
                  <enum>Qt::Horizontal</enum>
                 </property>
                </widget>
-               <widget class="QWidget" name="">
+               <widget class="QLabel" name="labelWalletStatus">
                 <property name="geometry">
                  <rect>
-                  <x>0</x>
-                  <y>190</y>
-                  <width>411</width>
-                  <height>341</height>
+                  <x>330</x>
+                  <y>180</y>
+                  <width>62</width>
+                  <height>16</height>
+                 </rect>
+                </property>
+                <property name="cursor">
+                 <cursorShape>WhatsThisCursor</cursorShape>
+                </property>
+                <property name="toolTip">
+                 <string>The displayed information may be out of date. Your wallet automatically synchronizes with the Aquila network after a connection is established, but this process has not completed yet.</string>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QLabel { color: red; }</string>
+                </property>
+                <property name="text">
+                 <string notr="true">(out of sync)</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+               <widget class="QWidget" name="layoutWidget">
+                <property name="geometry">
+                 <rect>
+                  <x>5</x>
+                  <y>230</y>
+                  <width>401</width>
+                  <height>161</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout">
@@ -487,38 +514,13 @@
                  </item>
                 </layout>
                </widget>
-               <widget class="QLabel" name="labelWalletStatus">
-                <property name="geometry">
-                 <rect>
-                  <x>170</x>
-                  <y>100</y>
-                  <width>62</width>
-                  <height>16</height>
-                 </rect>
-                </property>
-                <property name="cursor">
-                 <cursorShape>WhatsThisCursor</cursorShape>
-                </property>
-                <property name="toolTip">
-                 <string>The displayed information may be out of date. Your wallet automatically synchronizes with the Aquila network after a connection is established, but this process has not completed yet.</string>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QLabel { color: red; }</string>
-                </property>
-                <property name="text">
-                 <string notr="true">(out of sync)</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                </property>
-               </widget>
                <widget class="QLabel" name="labelBalances">
                 <property name="geometry">
                  <rect>
-                  <x>30</x>
-                  <y>100</y>
-                  <width>112</width>
-                  <height>19</height>
+                  <x>100</x>
+                  <y>140</y>
+                  <width>211</width>
+                  <height>81</height>
                  </rect>
                 </property>
                 <property name="minimumSize">
@@ -529,13 +531,13 @@
                 </property>
                 <property name="font">
                  <font>
-                  <pointsize>12</pointsize>
+                  <pointsize>23</pointsize>
                   <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
                 <property name="text">
-                 <string>AQX Balances</string>
+                 <string>AQX Balance</string>
                 </property>
                </widget>
               </widget>
