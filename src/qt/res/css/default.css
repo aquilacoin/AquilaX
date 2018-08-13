@@ -17,7 +17,9 @@
 /*                                                                                      */
 /* Note: it's sometimes not easy to figure out all those screen elements, so unused     */
 /*       but valid ones are commented out, not removed, in case they will be needed     */
-/*       again in the future.                                                           */
+/*       again in the future.								*/
+/*     											*/
+/*       AquilaX Team                                                                   */
 /*                                                                                      */
 /****************************************************************************************/
 
@@ -1320,10 +1322,6 @@ QDialog#TransactionDescDialog QTextEdit { /* Contents of Receive Coin Dialog */
 }
 
 /**************************** MASTERNODE LIST *******************************************/
-
-QWidget#MasternodeList {
-	background-color:#ffffff;
-}
 
 QWidget#MasternodeList .QFrame#frameList {
 	background-color:#ffffff;
