@@ -33,103 +33,106 @@ extern CWallet* pwalletMain;
 
 class TxViewDelegate : public QAbstractItemDelegate
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    TxViewDelegate() : QAbstractItemDelegate(), unit(BitcoinUnits::AQX)
-    {
-    }
+	TxViewDelegate() : QAbstractItemDelegate(), unit(BitcoinUnits::AQX)
+	{
+	}
 
-    inline void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
-    {
-        painter->save();
+	inline void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
+	{
+		painter->save();
 
-        QIcon icon = qvariant_cast<QIcon>(index.data(Qt::DecorationRole));
-        QRect mainRect = option.rect;
-        mainRect.moveLeft(ICON_OFFSET);
-        QRect decorationRect(mainRect.topLeft(), QSize(DECORATION_SIZE, DECORATION_SIZE));
-        int xspace = DECORATION_SIZE + 8;
-        int ypad = 6;
-        int halfheight = (mainRect.height() - 2 * ypad) / 2;
-        QRect amountRect(mainRect.left() + xspace, mainRect.top() + ypad, mainRect.width() - xspace - ICON_OFFSET, halfheight);
-        QRect addressRect(mainRect.left() + xspace, mainRect.top() + ypad + halfheight, mainRect.width() - xspace, halfheight);
-        icon.paint(painter, decorationRect);
+		QIcon icon = qvariant_cast<QIcon>(index.data(Qt::DecorationRole));
+		QRect mainRect = option.rect;
+		mainRect.moveLeft(ICON_OFFSET);
+		QRect decorationRect(mainRect.topLeft(), QSize(DECORATION_SIZE, DECORATION_SIZE));
+		int xspace = DECORATION_SIZE + 8;
+		int ypad = 6;
+		int halfheight = (mainRect.height() - 2 * ypad) / 2;
+		QRect amountRect(mainRect.left() + xspace, mainRect.top() + ypad, mainRect.width() - xspace - ICON_OFFSET, halfheight);
+		QRect addressRect(mainRect.left() + xspace, mainRect.top() + ypad + halfheight, mainRect.width() - xspace, halfheight);
+		icon.paint(painter, decorationRect);
 
-        QDateTime date = index.data(TransactionTableModel::DateRole).toDateTime();
-        QString address = index.data(Qt::DisplayRole).toString();
-        qint64 amount = index.data(TransactionTableModel::AmountRole).toLongLong();
-        bool confirmed = index.data(TransactionTableModel::ConfirmedRole).toBool();
+		QDateTime date = index.data(TransactionTableModel::DateRole).toDateTime();
+		QString address = index.data(Qt::DisplayRole).toString();
+		qint64 amount = index.data(TransactionTableModel::AmountRole).toLongLong();
+		bool confirmed = index.data(TransactionTableModel::ConfirmedRole).toBool();
 
-        // Check transaction status
-        int nStatus = index.data(TransactionTableModel::StatusRole).toInt();
-        bool fConflicted = false;
-        if (nStatus == TransactionStatus::Conflicted || nStatus == TransactionStatus::NotAccepted) {
-            fConflicted = true; // Most probably orphaned, but could have other reasons as well
-        }
-        bool fImmature = false;
-        if (nStatus == TransactionStatus::Immature) {
-            fImmature = true;
-        }
+		// Check transaction status
+		int nStatus = index.data(TransactionTableModel::StatusRole).toInt();
+		bool fConflicted = false;
+		if (nStatus == TransactionStatus::Conflicted || nStatus == TransactionStatus::NotAccepted) {
+			fConflicted = true; // Most probably orphaned, but could have other reasons as well
+		}
+		bool fImmature = false;
+		if (nStatus == TransactionStatus::Immature) {
+			fImmature = true;
+		}
 
-        QVariant value = index.data(Qt::ForegroundRole);
-        QColor foreground = COLOR_BLACK;
-        if (value.canConvert<QBrush>()) {
-            QBrush brush = qvariant_cast<QBrush>(value);
-            foreground = brush.color();
-        }
+		QVariant value = index.data(Qt::ForegroundRole);
+		QColor foreground = COLOR_BLACK;
+		if (value.canConvert<QBrush>()) {
+			QBrush brush = qvariant_cast<QBrush>(value);
+			foreground = brush.color();
+		}
 
-        painter->setPen(foreground);
-        QRect boundingRect;
-        painter->drawText(addressRect, Qt::AlignLeft | Qt::AlignVCenter, address, &boundingRect);
+		painter->setPen(foreground);
+		QRect boundingRect;
+		painter->drawText(addressRect, Qt::AlignLeft | Qt::AlignVCenter, address, &boundingRect);
 
-        if (index.data(TransactionTableModel::WatchonlyRole).toBool()) {
-            QIcon iconWatchonly = qvariant_cast<QIcon>(index.data(TransactionTableModel::WatchonlyDecorationRole));
-            QRect watchonlyRect(boundingRect.right() + 5, mainRect.top() + ypad + halfheight, 16, halfheight);
-            iconWatchonly.paint(painter, watchonlyRect);
-        }
+		if (index.data(TransactionTableModel::WatchonlyRole).toBool()) {
+			QIcon iconWatchonly = qvariant_cast<QIcon>(index.data(TransactionTableModel::WatchonlyDecorationRole));
+			QRect watchonlyRect(boundingRect.right() + 5, mainRect.top() + ypad + halfheight, 16, halfheight);
+			iconWatchonly.paint(painter, watchonlyRect);
+		}
 
-        if (fConflicted) { // No need to check anything else for conflicted transactions
-            foreground = COLOR_CONFLICTED;
-        } else if (!confirmed || fImmature) {
-            foreground = COLOR_UNCONFIRMED;
-        } else if (amount < 0) {
-            foreground = COLOR_NEGATIVE;
-        } else {
-            foreground = COLOR_BLACK;
-        }
-        painter->setPen(foreground);
-        QString amountText = BitcoinUnits::formatWithUnit(unit, amount, true, BitcoinUnits::separatorAlways);
-        if (!confirmed) {
-            amountText = QString("[") + amountText + QString("]");
-        }
-        painter->drawText(amountRect, Qt::AlignRight | Qt::AlignVCenter, amountText);
+		if (fConflicted) { // No need to check anything else for conflicted transactions
+			foreground = COLOR_CONFLICTED;
+		}
+		else if (!confirmed || fImmature) {
+			foreground = COLOR_UNCONFIRMED;
+		}
+		else if (amount < 0) {
+			foreground = COLOR_NEGATIVE;
+		}
+		else {
+			foreground = COLOR_BLACK;
+		}
+		painter->setPen(foreground);
+		QString amountText = BitcoinUnits::formatWithUnit(unit, amount, true, BitcoinUnits::separatorNever);
+		if (!confirmed) {
+			amountText = QString("[") + amountText + QString("]");
+		}
+		painter->drawText(amountRect, Qt::AlignRight | Qt::AlignVCenter, amountText);
 
-        painter->setPen(COLOR_BLACK);
-        painter->drawText(amountRect, Qt::AlignLeft | Qt::AlignVCenter, GUIUtil::dateTimeStr(date));
+		painter->setPen(COLOR_BLACK);
+		painter->drawText(amountRect, Qt::AlignLeft | Qt::AlignVCenter, GUIUtil::dateTimeStr(date));
 
-        painter->restore();
-    }
+		painter->restore();
+	}
 
-    inline QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
-    {
-        return QSize(DECORATION_SIZE, DECORATION_SIZE);
-    }
+	inline QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
+	{
+		return QSize(DECORATION_SIZE, DECORATION_SIZE);
+	}
 
-    int unit;
+	int unit;
 };
 #include "overviewpage.moc"
 
 OverviewPage::OverviewPage(QWidget* parent) : QWidget(parent),
-											  ui(new Ui::OverviewPage),
-											  clientModel(0),
-											  walletModel(0),
-											  currentBalance(-1),
-											  currentUnconfirmedBalance(-1),
-											  currentImmatureBalance(-1),
-											  currentWatchOnlyBalance(-1),
-											  currentWatchUnconfBalance(-1),
-											  currentWatchImmatureBalance(-1),
-											  txdelegate(new TxViewDelegate()),
-											  filter(0)
+ui(new Ui::OverviewPage),
+clientModel(0),
+walletModel(0),
+currentBalance(-1),
+currentUnconfirmedBalance(-1),
+currentImmatureBalance(-1),
+currentWatchOnlyBalance(-1),
+currentWatchUnconfBalance(-1),
+currentWatchImmatureBalance(-1),
+txdelegate(new TxViewDelegate()),
+filter(0)
 {
 	nDisplayUnit = 0; // just make sure it's not unitialized
 	ui->setupUi(this);
