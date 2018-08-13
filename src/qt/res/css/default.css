@@ -1,3 +1,26 @@
+/****************************************************************************************/
+/* Global color codes:              All these values need edited                        */
+/* dark-purple:        #382f44                                                          */
+/* transparent-purple: #e9e7ef (for inactive backgrounds)                               */
+/*                                                                                      */
+/* light-purple1:      #b396f6 (main purple for white backgrounds)                      */
+/* light-purple2:      #9179c7 (sligtly darker for gradients)                           */
+/*                                                                                      */
+/* medium-purple1:     #6f5ca3 (on hover)                                               */
+/* medium-purple1:     #5c4c7c (main purple for dark backgrounds)                       */
+/* medium-purple2:     #5b4c86 (sligtly darker for gradients)                           */
+/*                                                                                      */
+/* fuchsia:            #df1cca                                                          */
+/* background:         #fff                                                             */
+/* input fields:       #e7e7e7                                                          */
+/****************************************************************************************/
+/*                                                                                      */
+/* Note: it's sometimes not easy to figure out all those screen elements, so unused     */
+/*       but valid ones are commented out, not removed, in case they will be needed     */
+/*       again in the future.                                                           */
+/*                                                                                      */
+/****************************************************************************************/
+
 
 WalletFrame {
 	border-image: url(':/images/walletFrame') 0 0 0 0 stretch stretch;
@@ -44,27 +67,33 @@ QMenu::item:selected {
 }
 
 QToolBar {
-	background-color: #010736;
-	border: 0px solid #fff;
-	padding: 0;
-	margin: 0;
+background-color: qlineargradient(y1:0, y2: 1, stop: 0 #010736, stop: 0.75 #010736, stop: 0.99 #ffffff, stop: 1 #ffffff);
+border:0px solid #fff;
+padding:1;
+margin:0;
+width: 70px;
 }
 
 QToolBar > QToolButton {
-	background-color:#010736;
-	border:0px solid #333;
-	selection-background-color:transparent;
-	min-height: 2.5em;
-	padding: 0em 1em;
-	font-weight: bold;
-	font-size: 13px;
-	color: #fff;
+Alignment: left;
+background-color: #010736;
+selection-background-color:transparent;
+border:0.5px solid #333;
+border-left: 0px;
+border-right: 0px;
+border-top: 0px;
+min-height:2.5em;
+padding: 0em 0em;
+font-size: 11px;
+color:#fff;
+width: 80px;
+height: 60px;
 }
 
 QToolBar > QToolButton:checked {
-	background-color: #fff;
-	color:#333;
-	font-weight:bold;
+background-color: qlineargradient(x1:0, x2: 1, stop: 0 #fff, stop: 0.07 #fff, stop: 0.0701 #372f44, stop: 1 #372f44);
+color:#333;
+font-weight:bold;
 }
 
 QMessageBox {
@@ -72,11 +101,12 @@ QMessageBox {
 }
 
 QProgressBar {
-	color: #AAAAAA;
-	border: 1px solid transparent;
-	border-radius: 50px;
-	background-color: transparent;
-	border-style: none;
+color: #AAAAAA;
+border:0px solid grey;
+border-radius:50px;
+background-color:transparent;
+padding-left:0px;
+padding-right:0px;
 }
 
 QProgressBar::chunk {
