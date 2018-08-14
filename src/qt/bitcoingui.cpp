@@ -289,18 +289,10 @@ BitcoinGUI::~BitcoinGUI()
 
 void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 {
+	//Overview Tab on main wallet gui
     QActionGroup* tabGroup = new QActionGroup(this);
 
-    QPixmap overviewIconInactive(":/icons/overview");
-    QPixmap overviewIconActive(":icons/overview_active");
-    QIcon overviewIcon(overviewIconInactive);
-
-    overviewIcon.addPixmap(overviewIconActive,QIcon::Selected,QIcon::On);
-    overviewIcon.addPixmap(overviewIconActive,QIcon::Selected,QIcon::Off);
-    overviewIcon.addPixmap(overviewIconActive,QIcon::Active,QIcon::On);
-    overviewIcon.addPixmap(overviewIconActive,QIcon::Active,QIcon::Off);
-
-    overviewAction = new QAction(overviewIcon, tr("&Overview"), this);
+    overviewAction = new QAction(QIcon(":/icons/overview"), tr("&Overview"), this);
     overviewAction->setStatusTip(tr("Show general overview of wallet"));
     overviewAction->setToolTip(overviewAction->statusTip());
     overviewAction->setCheckable(true);
@@ -311,16 +303,8 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 #endif
     tabGroup->addAction(overviewAction);
 
-    QPixmap sendIconInactive(":/icons/send");
-    QPixmap sendIconActive(":icons/send_active");
-    QIcon sendIcon(sendIconInactive);
-
-    sendIcon.addPixmap(sendIconActive,QIcon::Selected,QIcon::On);
-    sendIcon.addPixmap(sendIconActive,QIcon::Selected,QIcon::Off);
-    sendIcon.addPixmap(sendIconActive,QIcon::Active,QIcon::On);
-    sendIcon.addPixmap(sendIconActive,QIcon::Active,QIcon::Off);
-
-    sendCoinsAction = new QAction(sendIcon, tr("&Send"), this);
+	//Send Tab on main wallet gui
+    sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send"), this);
     sendCoinsAction->setStatusTip(tr("Send coins to a AQX address"));
     sendCoinsAction->setToolTip(sendCoinsAction->statusTip());
     sendCoinsAction->setCheckable(true);
@@ -331,17 +315,9 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 #endif
     tabGroup->addAction(sendCoinsAction);
 
-    QPixmap receiveIconInactive(":/icons/receiving_addresses");
-    QPixmap receiveIconActive(":icons/receiving_addresses_active");
-    QIcon receiveIcon(receiveIconInactive);
-
-    receiveIcon.addPixmap(receiveIconActive,QIcon::Selected,QIcon::On);
-    receiveIcon.addPixmap(receiveIconActive,QIcon::Selected,QIcon::Off);
-    receiveIcon.addPixmap(receiveIconActive,QIcon::Active,QIcon::On);
-    receiveIcon.addPixmap(receiveIconActive,QIcon::Active,QIcon::Off);
-
-   receiveCoinsAction = new QAction(receiveIcon, tr("&Receive"), this);
-    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and Aquila: URIs)"));
+	//Receive Tab on main wallet gui
+    receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive"), this);
+    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and aqx: URIs)"));
     receiveCoinsAction->setToolTip(receiveCoinsAction->statusTip());
     receiveCoinsAction->setCheckable(true);
 #ifdef Q_OS_MAC
@@ -351,16 +327,8 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 #endif
     tabGroup->addAction(receiveCoinsAction);
 
-    QPixmap historyIconInactive(":/icons/history");
-    QPixmap historyIconActive(":icons/history_active");
-    QIcon historyIcon(historyIconInactive);
-
-    historyIcon.addPixmap(historyIconActive,QIcon::Selected,QIcon::On);
-    historyIcon.addPixmap(historyIconActive,QIcon::Selected,QIcon::Off);
-    historyIcon.addPixmap(historyIconActive,QIcon::Active,QIcon::On);
-    historyIcon.addPixmap(historyIconActive,QIcon::Active,QIcon::Off);
-
-    historyAction = new QAction(historyIcon, tr("&Transactions"), this);
+	//History Tab on main wallet gui
+    historyAction = new QAction(QIcon(":/icons/history"), tr("&Transactions"), this);
     historyAction->setStatusTip(tr("Browse transaction history"));
     historyAction->setToolTip(historyAction->statusTip());
     historyAction->setCheckable(true);
@@ -373,18 +341,10 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 
 #ifdef ENABLE_WALLET
 
+	//Masternode Tab on main wallet gui
     QSettings settings;
     if (settings.value("fShowMasternodesTab").toBool()) {
-        QPixmap masternodesIconInactive(":/icons/masternodes");
-        QPixmap masternodesIconActive(":icons/masternodes_active");
-        QIcon masternodesIcon(masternodesIconInactive);
-
-        masternodesIcon.addPixmap(masternodesIconActive,QIcon::Selected,QIcon::On);
-        masternodesIcon.addPixmap(masternodesIconActive,QIcon::Selected,QIcon::Off);
-        masternodesIcon.addPixmap(masternodesIconActive,QIcon::Active,QIcon::On);
-        masternodesIcon.addPixmap(masternodesIconActive,QIcon::Active,QIcon::Off);
-
-        masternodeAction = new QAction(masternodesIcon, tr("&Masternodes"), this);
+        masternodeAction = new QAction(QIcon(":/icons/masternodes"), tr("&Masternodes"), this);
         masternodeAction->setStatusTip(tr("Browse masternodes"));
         masternodeAction->setToolTip(masternodeAction->statusTip());
         masternodeAction->setCheckable(true);
@@ -593,7 +553,7 @@ void BitcoinGUI::createToolBars()
         }
         toolbar->setMovable(false); // remove unused icon in upper left corner
         toolbar->setOrientation(Qt::Vertical);
-        toolbar->setIconSize(QSize(40,100)); //Was 40,40
+        toolbar->setIconSize(QSize(40,40));
         overviewAction->setChecked(true);
 
         /** Create additional container for toolbar and walletFrame and make it the central widget.
@@ -633,12 +593,20 @@ void BitcoinGUI::setClientModel(ClientModel* clientModel)
         connect(clientModel, SIGNAL(showProgress(QString, int)), this, SLOT(showProgress(QString, int)));
 
         rpcConsole->setClientModel(clientModel);
-#ifdef ENABLE_WALLET
+
+
+		#ifdef ENABLE_WALLET
         if (walletFrame) {
             walletFrame->setClientModel(clientModel);
         }
 #endif // ENABLE_WALLET
         unitDisplayControl->setOptionsModel(clientModel->getOptionsModel());
+        connect(clientModel->getOptionsModel(), SIGNAL(zeromintEnableChanged(bool)), this, SLOT(setAutoMintStatus()));
+
+        //Show trayIcon
+        if (trayIcon) {
+            trayIcon->show();
+        }
     } else {
         // Disable possibility to show main window via action
         toggleHideAction->setEnabled(false);
@@ -1170,6 +1138,7 @@ bool BitcoinGUI::eventFilter(QObject* object, QEvent* event)
     return QMainWindow::eventFilter(object, event);
 }
 
+#ifdef ENABLE_WALLET
 void BitcoinGUI::setStakingStatus()
 {
     if (pwalletMain)
@@ -1186,7 +1155,7 @@ void BitcoinGUI::setStakingStatus()
     }
 }
 
-#ifdef ENABLE_WALLET
+
 bool BitcoinGUI::handlePaymentRequest(const SendCoinsRecipient& recipient)
 {
     // URI has to be valid
