@@ -1,6 +1,6 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2017 The PIVX developers
+// Copyright (c) 2015-2017 The AQXX developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -162,6 +162,7 @@ OverviewPage::~OverviewPage()
 void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmedBalance, const CAmount& immatureBalance,
                               const CAmount& watchOnlyBalance, const CAmount& watchUnconfBalance, const CAmount& watchImmatureBalance)
 {
+    /*
     currentBalance = balance;
     currentUnconfirmedBalance = unconfirmedBalance;
     currentImmatureBalance = immatureBalance;
@@ -197,6 +198,71 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
         cachedTxLocks = nCompleteTXLocks;
         ui->listTransactions->update();
     }
+}
+*/
+    // AQX Balance
+    CAmount nTotalBalance = balance + unconfirmedBalance;
+    CAmount pivAvailableBalance = balance - immatureBalance - nLockedBalance;
+    CAmount nUnlockedBalance = nTotalBalance - nLockedBalance;
+
+    // AQX Watch-Only Balance
+    CAmount nTotalWatchBalance = watchOnlyBalance + watchUnconfBalance;
+    CAmount nAvailableWatchBalance = watchOnlyBalance - watchImmatureBalance - nWatchOnlyLockedBalance;
+
+    // AQX labels
+    ui->labelBalance->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, pivAvailableBalance, false, BitcoinUnits::separatorAlways));
+    ui->labelUnconfirmed->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, unconfirmedBalance, false, BitcoinUnits::separatorAlways));
+    ui->labelImmature->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, immatureBalance, false, BitcoinUnits::separatorAlways));
+    ui->labelLockedBalance->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, nLockedBalance, false, BitcoinUnits::separatorAlways));
+    ui->labelTotal->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, nTotalBalance, false, BitcoinUnits::separatorAlways));
+
+    // Watchonly labels
+    ui->labelWatchAvailable->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, nAvailableWatchBalance, false, BitcoinUnits::separatorAlways));
+    ui->labelWatchPending->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, watchUnconfBalance, false, BitcoinUnits::separatorAlways));
+    ui->labelWatchImmature->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, watchImmatureBalance, false, BitcoinUnits::separatorAlways));
+    ui->labelWatchLocked->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, nWatchOnlyLockedBalance, false, BitcoinUnits::separatorAlways));
+    ui->labelWatchTotal->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, nTotalWatchBalance, false, BitcoinUnits::separatorAlways));
+    // Combined labels
+    ui->labelBalancez->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, availableTotalBalance, false, BitcoinUnits::separatorAlways));
+    ui->labelTotalz->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, sumTotalBalance, false, BitcoinUnits::separatorAlways));
+
+    // Only show most balances if they are non-zero for the sake of simplicity
+    QSettings settings;
+    bool settingShowAllBalances = !settings.value("fHideZeroBalances").toBool();
+
+    bool showSumAvailable = settingShowAllBalances || sumTotalBalance != availableTotalBalance;
+    ui->labelBalanceTextz->setVisible(showSumAvailable);
+    ui->labelBalancez->setVisible(showSumAvailable);
+
+    bool showWatchOnly = nTotalWatchBalance != 0;
+
+    // AQX Available
+    bool showAQXAvailable = settingShowAllBalances || pivAvailableBalance != nTotalBalance;
+    bool showWatchOnlyAQXAvailable = showAQXAvailable || nAvailableWatchBalance != nTotalWatchBalance;
+    ui->labelBalanceText->setVisible(showAQXAvailable || showWatchOnlyAQXAvailable);
+    ui->labelBalance->setVisible(showAQXAvailable || showWatchOnlyAQXAvailable);
+    ui->labelWatchAvailable->setVisible(showWatchOnlyAQXAvailable && showWatchOnly);
+
+    // AQX Pending
+    bool showAQXPending = settingShowAllBalances || unconfirmedBalance != 0;
+    bool showWatchOnlyAQXPending = showAQXPending || watchUnconfBalance != 0;
+    ui->labelPendingText->setVisible(showAQXPending || showWatchOnlyAQXPending);
+    ui->labelUnconfirmed->setVisible(showAQXPending || showWatchOnlyAQXPending);
+    ui->labelWatchPending->setVisible(showWatchOnlyAQXPending && showWatchOnly);
+
+    // AQX Immature
+    bool showAQXImmature = settingShowAllBalances || immatureBalance != 0;
+    bool showWatchOnlyImmature = showAQXImmature || watchImmatureBalance != 0;
+    ui->labelImmatureText->setVisible(showAQXImmature || showWatchOnlyImmature);
+    ui->labelImmature->setVisible(showAQXImmature || showWatchOnlyImmature);    // for symmetry reasons also show immature label when the watch-only one is shown
+    ui->labelWatchImmature->setVisible(showWatchOnlyImmature && showWatchOnly); // show watch-only immature balance
+
+    // AQX Locked
+    bool showAQXLocked = settingShowAllBalances || nLockedBalance != 0;
+    bool showWatchOnlyAQXLocked = showAQXLocked || nWatchOnlyLockedBalance != 0;
+    ui->labelLockedBalanceText->setVisible(showAQXLocked || showWatchOnlyAQXLocked);
+    ui->labelLockedBalance->setVisible(showAQXLocked || showWatchOnlyAQXLocked);
+    ui->labelWatchLocked->setVisible(showWatchOnlyAQXLocked && showWatchOnly);
 }
 
 // show/hide watch-only labels
