@@ -4,7 +4,11 @@
 /* transparent-blue:   #E5E6EA (for inactive backgrounds)                               */
 /*                                                                                      */
 /* light-grey1:        #333333 (main Grey for white backgrounds)                        */
-/* light-grey2:        #d9d9d9 (sligtly darker for gradients)                           */                                                        
+/* light-grey2:        #d9d9d9                                                          */
+/* Light-blue1:        #33385e                                                          */
+/* Light-blue2:        #2d3254     (sligtly darker for gradients)                       */
+/*                                                                                      */
+/*                                                                                      */
 /****************************************************************************************/
 /*                                                                                      */
 /*                  Please document all color changes                                   */
@@ -73,7 +77,7 @@ QToolBar {
     QToolBar > QToolButton {
         Alignment: left;
         background-color: #010736;
-        selection-background-color: transparent;
+        selection-background-color:transparent;
         border: 0.5px solid #333;
         border-left: 0px;
         border-right: 0px;
@@ -208,12 +212,12 @@ QLabel { /* Base Text Size & Color */
 
     .QLineEdit:!focus {
         color: #333;
-        background-color: #f2f2f2;
+        background-color: #e7e7e7;
     }
 
     .QTextEdit:!focus {
         color: #333;
-        background-color: #f2f2f2;
+        background-color: #e7e7e7;
     }
 
     /* .QValidatedLineEdit:checked, .QLineEdit:checked */
@@ -247,14 +251,14 @@ QPushButton { /* Global Button Style */
 }
 
     QPushButton:hover {
-        background-color: #f2f2f2;
-        font: #333;
+        background-color: qlineargradient(y1:0, y2: 1, stop: 0 #ffffff, stop: 0.1 #ffffff, stop: 0.101 #010736, stop: 0.9 #010736, stop: 0.901 #ffffff, stop: 1 #ffffff);
     }
 
+
     QPushButton:pressed {
-        background-color: #f2f2f2;
+        background-color: #33385e;
         border: 1px solid #000000;
-        font: #333;
+        background-color: qlineargradient(y1:0, y2: 1, stop: 0 #00ff00, stop: 0.1 #00ff00, stop: 0.101 #2d3254, stop: 0.9 #2d3254, stop: 0.901 #00ff00, stop: 1 #00ff00);
     }
 
     /* Special handling for statusbar-icons (which are partly QPushButtons) */
