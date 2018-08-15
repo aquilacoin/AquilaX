@@ -886,17 +886,17 @@ QWidget .QFrame#frame_Space { /* Space between Header and Content */
 
 QWidget .QFrame#frame_Content { /* Actual Content */
     min-width: 400px;
-    background-color:#f8f6f6; 
+   /* background-color:#f8f6f6; */
 }
 
 QWidget .QFrame#frameBalances { /* Upper left side */
     min-width: 400px;
-    background-color:#ffffff;
+   /* background-color:#ffffff; */
 }
 
 QWidget .QFrame#frame_RecentTransactions { /* Right side */
     min-width: 400px;
-    background-color:#ffffff;
+  /*  background-color:#ffffff; */
 }
 
 QWidget .QFrame#frameBalances > .QLabel {
