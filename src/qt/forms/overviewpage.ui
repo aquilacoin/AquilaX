@@ -67,13 +67,31 @@
     </property>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_Master" stretch="0,1">
-      <property name="margin">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
        <number>0</number>
       </property>
       <item>
        <widget class="QFrame" name="frame_Header">
         <layout class="QVBoxLayout" name="verticalLayout_Header" stretch="0">
-         <property name="margin">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
           <number>0</number>
          </property>
          <item>
@@ -176,31 +194,6 @@
                <property name="frameShadow">
                 <enum>QFrame::Raised</enum>
                </property>
-               <widget class="Line" name="lineBalances">
-                <property name="geometry">
-                 <rect>
-                  <x>10</x>
-                  <y>517</y>
-                  <width>391</width>
-                  <height>1</height>
-                 </rect>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>1</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>1</height>
-                 </size>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
                <widget class="QLabel" name="labelWalletStatus">
                 <property name="geometry">
                  <rect>
@@ -517,9 +510,9 @@
                <widget class="QLabel" name="labelBalances">
                 <property name="geometry">
                  <rect>
-                  <x>100</x>
+                  <x>70</x>
                   <y>140</y>
-                  <width>211</width>
+                  <width>251</width>
                   <height>81</height>
                  </rect>
                 </property>
@@ -673,9 +666,9 @@
                <widget class="QLabel" name="labelTransactionsStatus">
                 <property name="geometry">
                  <rect>
-                  <x>176</x>
-                  <y>11</y>
-                  <width>62</width>
+                  <x>190</x>
+                  <y>10</y>
+                  <width>71</width>
                   <height>16</height>
                  </rect>
                 </property>
