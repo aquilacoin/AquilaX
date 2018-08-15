@@ -54,7 +54,7 @@ QMenuBar {
         }
 
 QMenu {
-    background-color: #010736;
+    background-color: #f8f6f6;
 }
 
     QMenu::item {
