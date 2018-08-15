@@ -867,8 +867,8 @@ QLabel#labelOverviewHeaderRight {
     background-repeat: no-repeat;
 }
 
-QWidget .QFrame#frame_Header { /* Header with Page-Title and PIVX-image */
-    min-width: 400px;
+QWidget .QFrame#frame_Header { /* Header with Page-Title and AQX-image */
+    min-width: 600px; /*Default is 400 testing image size before strected effect*/
     background-color: #ffffff;
 }
 
@@ -881,22 +881,22 @@ QWidget .QFrame#frame_BG { /* Background */
 
 QWidget .QFrame#frame_Space { /* Space between Header and Content */
     min-width: 400px;
-    /* background-color:#ffffff; */
+    background-color: #f8f6f6;
 }
 
 QWidget .QFrame#frame_Content { /* Actual Content */
     min-width: 400px;
-    /* background-color:#ffffff; */
+    background-color:#f8f6f6; 
 }
 
 QWidget .QFrame#frameBalances { /* Upper left side */
     min-width: 400px;
-    /* background-color:#ffffff; */
+    background-color:#ffffff;
 }
 
 QWidget .QFrame#frame_RecentTransactions { /* Right side */
     min-width: 400px;
-    /* background-color:#ffffff; */
+    background-color:#ffffff;
 }
 
 QWidget .QFrame#frameBalances > .QLabel {
