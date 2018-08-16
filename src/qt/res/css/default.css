@@ -1341,9 +1341,8 @@ QLabel#transactionSumLabel { /* Example of setObjectName for widgets without nam
     font-weight: bold;
 }
 
-QLabel#transactionSum { /* Example of setObjectName for widgets without name */
+QLabel#transactionSum { /* Example of setObjectName for widgets without name bottom right selected amount box */
     color: #333333;
-    background-color: lightslategrey;
 }
 
 /**************************** TRANSACTION DETAILS DIALOG ********************************/
