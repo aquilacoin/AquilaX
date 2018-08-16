@@ -863,7 +863,7 @@ QLabel#labelOverviewHeaderLeft {
 
 QLabel#labelOverviewHeaderRight {
     qproperty-alignment: 'AlignVCenter | AlignRight';
-    min-width: 1000px; /*New Value Added*/
+    min-width: 400px; 
     background-image: url(':/images/Aquila_logo_horizontal');
     background-repeat: no-repeat;
 }
@@ -1327,12 +1327,12 @@ TransactionView QLineEdit { /* Address Filter */
     margin-right: 1px;
     min-width: 111px;
     text-align: center;
+    background-color: lightslategrey;
 }
 
 TransactionView QComboBox {
     margin-bottom: 1px;
     margin-right: 1px;
-    background-color: lightslategrey;
     color: black;
 }
 
@@ -1343,6 +1343,7 @@ QLabel#transactionSumLabel { /* Example of setObjectName for widgets without nam
 
 QLabel#transactionSum { /* Example of setObjectName for widgets without name */
     color: #333333;
+    background-color: lightslategrey;
 }
 
 /**************************** TRANSACTION DETAILS DIALOG ********************************/
