@@ -863,12 +863,13 @@ QLabel#labelOverviewHeaderLeft {
 
 QLabel#labelOverviewHeaderRight {
     qproperty-alignment: 'AlignVCenter | AlignRight';
+    min-width: 1000px; /*New Value Added*/
     background-image: url(':/images/Aquila_logo_horizontal');
     background-repeat: no-repeat;
 }
 
 QWidget .QFrame#frame_Header { /* Header with Page-Title and AQX-image */
-    min-width: 400px; /*Default is 400 testing image size before strected effect*/
+    min-width: 400px; 
     background-color: #ffffff;
 }
 
@@ -1331,6 +1332,8 @@ TransactionView QLineEdit { /* Address Filter */
 TransactionView QComboBox {
     margin-bottom: 1px;
     margin-right: 1px;
+    background-color: lightslategrey;
+    color: black;
 }
 
 QLabel#transactionSumLabel { /* Example of setObjectName for widgets without name */
