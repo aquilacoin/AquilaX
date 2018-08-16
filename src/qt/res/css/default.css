@@ -868,7 +868,7 @@ QLabel#labelOverviewHeaderRight {
 }
 
 QWidget .QFrame#frame_Header { /* Header with Page-Title and AQX-image */
-    min-width: 600px; /*Default is 400 testing image size before strected effect*/
+    min-width: 400px; /*Default is 400 testing image size before strected effect*/
     background-color: #ffffff;
 }
 
@@ -931,17 +931,18 @@ QWidget .QFrame#frameBalances .QLabel#labelImmatureText, /* Immature Balance Lab
 QWidget .QFrame#frameBalances .QLabel#labelTotalText, /* Total Balance Label */
 QWidget .QFrame#frameBalances .QLabel#labelPendingText, /* Pending Balance Label */
 QWidget .QFrame#frameBalances .QLabel#labelBalanceText, /* Available Balance Label */
-QWidget .QFrame#frameBalances .QLabel#labelBalances { /* BITG Balances Header Label */
+QWidget .QFrame#frameBalances .QLabel#labelBalances { /* AQX Balances Header Label */
     qproperty-alignment: 'AlignVCenter | AlignLeft';
     min-width: 160px;
     color: #333333;
     margin-right: 5px;
     padding-right: 5px;
-    font-size: 14px;
+    font-size: 20px; /*Was 14 as default value*/
 }
 
 QWidget .QFrame#frameBalances .QLabel#labelBalances { /* AQX Balances Header Label */
     font-weight: bold;
+    color: #ffffff;
 }
 
 QWidget .QFrame#frameBalances #lineBalances { /* AQX Balances Line separator */
