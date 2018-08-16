@@ -996,6 +996,7 @@ QWidget .QFrame#frame_RecentTransactions { /* Transactions Widget */
 
     QWidget .QFrame#frame_RecentTransactions QListView { /* Transaction List */
         font-weight: normal;
+        background-color: #333333;
         font-size: 12px;
         max-width: 369px;
         margin-top: 12px;
