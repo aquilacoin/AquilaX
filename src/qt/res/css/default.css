@@ -49,9 +49,9 @@ background-color: #fff;
 color: #333;
 }
 
-QMenuBar::item:selected {
-background-color: transparent;
-}
+    QMenuBar::item:selected {
+        background-color: transparent; /*Was #f2f0f0*/
+    }
 
 QMenu {
     background-color: #E5E6EA;
@@ -62,7 +62,7 @@ QMenu {
     }
 
         QMenu::item:selected {
-            background-color: #f2f0f0;
+            background-color: transparent; /*Was #f2f0f0*/
             color: #333;
         }
 
