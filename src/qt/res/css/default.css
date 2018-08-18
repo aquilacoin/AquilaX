@@ -50,7 +50,7 @@ color: #333;
 }
 
     QMenuBar::item:selected {
-        background-color: transparent; /*Was #f2f0f0*/
+        background-color: #333; /*Was #f2f0f0*/
     }
 
 QMenu {
@@ -62,7 +62,7 @@ QMenu {
     }
 
         QMenu::item:selected {
-            background-color: transparent; /*Was #f2f0f0*/
+            background-color: #333; /*Was #f2f0f0*/
             color: #333;
         }
 
@@ -162,7 +162,7 @@ QTabBar {
 
 QWidget {
     selection-background-color: #f2f2f2; /* Object highlight color */
-    selection-color: #fff;
+    selection-color: 333333; /*Was #fff*/
     outline: 0; /* Remove Annoying Focus Rectangle */
 }
 
