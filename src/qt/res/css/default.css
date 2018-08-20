@@ -2,9 +2,11 @@
 /* Global color codes:              All these values need edited                        */
 /* dark-blue:          #010736                                                          */
 /* transparent-blue:   #E5E6EA (for inactive backgrounds)                               */
+/* Highlight Color:    #f2f0f0 (for selection highlighted text)                         */
 /*                                                                                      */
-/* light-grey1:        #333333 (main Grey for white backgrounds)                        */
-/* light-grey2:        #d9d9d9                                                          */
+/*                                                                                      */
+/* dark-grey1:        #333333 (main Grey for white backgrounds)                         */
+/* light-grey2:        #d9d9d9 (Text box background)                                    */
 /* Light-blue1:        #33385e                                                          */
 /* Light-blue2:        #2d3254     (sligtly darker for gradients)                       */
 /*                                                                                      */
@@ -1151,11 +1153,12 @@ QDialog#CoinControlDialog .QLabel#labelCoinControlBytes { /* Coin Control Bytes 
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlAmountText { /* Coin Control Amount Label */
     min-height: 30px;
-    padding-left: 15px;
+    padding-left: 15px;    
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlAmount { /* Coin Control Amount */
     min-height: 30px;
+    background-color: #d9d9d9;
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlPriorityText { /* Coin Control Priority Label */
@@ -1320,6 +1323,7 @@ QWidget#ReceiveCoinsDialog {
 
 QDialog#ReceiveRequestDialog QTextEdit { /* Contents of Receive Coin Dialog */
     border: 1px solid #d7d7d7;
+    color: black;
 }
 
 /**************************** TRANSACTIONS PAGE *****************************************/
