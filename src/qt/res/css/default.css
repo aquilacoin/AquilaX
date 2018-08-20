@@ -50,7 +50,7 @@ color: #333;
 }
 
     QMenuBar::item:selected {
-        background-color: #333; /*Was #f2f0f0*/
+        background-color: #f2f0f0; /*Was #f2f0f0*/
     }
 
 QMenu {
@@ -62,7 +62,7 @@ QMenu {
     }
 
         QMenu::item:selected {
-            background-color: #333; /*Was #f2f0f0*/
+            background-color: #f2f0f0; /*Was #f2f0f0*/
             color: #333;
         }
 
@@ -159,10 +159,12 @@ QTabBar {
     QTabBar::tab:hover:!selected {
         background-color: #dedbe5;
     }
-
+            /**********************************/
+           /*This is the word highligt sction*/
+          /**********************************/
 QWidget {
-    selection-background-color: 7e98b0; /* Object highlight color was f2f2f2 */
-    selection-color: fff; /*Was #fff this is hover select*/
+    selection-background-color: #f2f0f0; /* Other highlight colors 7e98b0 f2f0f0 */
+    selection-color: fff;
     outline: 0; /* Remove Annoying Focus Rectangle */
 }
 
