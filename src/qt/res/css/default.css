@@ -1105,7 +1105,7 @@ QStackedWidget#SendCoinsEntry .QFrame#SendCoins > .QLabel { /* Send Coin Entry L
 /* QStackedWidget#SendCoinsEntry .QValidatedLineEdit#payTo:!focus { /* Pay To Input Field */
 
 QStackedWidget#SendCoinsEntry .QToolButton { /* General Settings for Pay To Icons */
-    background-color: #f2f2f2;
+    background-color: #d9d9d9; /*Was f2f2f2*/
     border-width: 1px;
     border-style: outset;
     border-color: #010736;
@@ -1142,6 +1142,7 @@ QDialog#CoinControlDialog .QLabel#labelCoinControlQuantityText { /* Coin Control
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlQuantity { /* Coin Control Quantity */
     min-height: 30px;
+    background-color: #d9d9d9;
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlBytesText { /* Coin Control Bytes Label */
@@ -1149,6 +1150,7 @@ QDialog#CoinControlDialog .QLabel#labelCoinControlBytesText { /* Coin Control By
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlBytes { /* Coin Control Bytes */
+    background-color: #d9d9d9;
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlAmountText { /* Coin Control Amount Label */
@@ -1166,6 +1168,7 @@ QDialog#CoinControlDialog .QLabel#labelCoinControlPriorityText { /* Coin Control
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlPriority { /* Coin Control Priority */
+    background-color: #d9d9d9;
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlFeeText { /* Coin Control Fee Label */
@@ -1175,6 +1178,7 @@ QDialog#CoinControlDialog .QLabel#labelCoinControlFeeText { /* Coin Control Fee 
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlFee { /* Coin Control Fee */
     min-height: 30px;
+    background-color: #d9d9d9;
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlLowOutputText { /* Coin Control Low Output Label */
@@ -1182,6 +1186,7 @@ QDialog#CoinControlDialog .QLabel#labelCoinControlLowOutputText { /* Coin Contro
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlLowOutput { /* Coin Control Low Output */
+    background-color: #d9d9d9;
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlAfterFeeText { /* Coin Control After Fee Label */
@@ -1191,6 +1196,7 @@ QDialog#CoinControlDialog .QLabel#labelCoinControlAfterFeeText { /* Coin Control
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlAfterFee { /* Coin Control After Fee */
     min-height: 30px;
+    background-color: #d9d9d9;
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlChangeText { /* Coin Control Change Label */
@@ -1198,6 +1204,7 @@ QDialog#CoinControlDialog .QLabel#labelCoinControlChangeText { /* Coin Control C
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlChange { /* Coin Control Change */
+    background-color: #d9d9d9;
 }
 
 QDialog#CoinControlDialog .QFrame#frame .QPushButton#pushButtonSelectAll { /* (un)select all button */
