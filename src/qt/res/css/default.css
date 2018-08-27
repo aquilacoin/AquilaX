@@ -2,9 +2,11 @@
 /* Global color codes:              All these values need edited                        */
 /* dark-blue:          #010736                                                          */
 /* transparent-blue:   #E5E6EA (for inactive backgrounds)                               */
+/* Highlight Color:    #f2f0f0 (for selection highlighted text)                         */
 /*                                                                                      */
-/* light-grey1:        #333333 (main Grey for white backgrounds)                        */
-/* light-grey2:        #d9d9d9                                                          */
+/*                                                                                      */
+/* dark-grey1:        #333333 (main Grey for white backgrounds)                         */
+/* light-grey2:        #d9d9d9 (Text box background)                                    */
 /* Light-blue1:        #33385e                                                          */
 /* Light-blue2:        #2d3254     (sligtly darker for gradients)                       */
 /*                                                                                      */
@@ -49,9 +51,9 @@ background-color: #fff;
 color: #333;
 }
 
-QMenuBar::item:selected {
-background-color: #f8f6f6;
-}
+    QMenuBar::item:selected {
+        background-color: #f2f0f0; /*Was #f2f0f0*/
+    }
 
 QMenu {
     background-color: #E5E6EA;
@@ -62,7 +64,7 @@ QMenu {
     }
 
         QMenu::item:selected {
-            background-color: #f2f0f0;
+            background-color: #f2f0f0; /*Was #f2f0f0*/
             color: #333;
         }
 
@@ -159,10 +161,12 @@ QTabBar {
     QTabBar::tab:hover:!selected {
         background-color: #dedbe5;
     }
-
+            /**********************************/
+           /*This is the word highligt sction*/
+          /**********************************/
 QWidget {
-    selection-background-color: #f2f2f2; /* Object highlight color */
-    selection-color: #fff;
+    selection-background-color: #f2f0f0; /* Other highlight colors 7e98b0 f2f0f0 */
+    selection-color: fff;
     outline: 0; /* Remove Annoying Focus Rectangle */
 }
 
@@ -886,7 +890,7 @@ QWidget .QFrame#frame_Space { /* Space between Header and Content */
 }
 
 QWidget .QFrame#frame_Content { /* Actual Content */
-    min-width: 400px;
+    min-width: 700px; /*Was 400*/
    /* background-color:#f8f6f6; */
 }
 
@@ -896,7 +900,7 @@ QWidget .QFrame#frameBalances { /* Upper left side */
 }
 
 QWidget .QFrame#frame_RecentTransactions { /* Right side */
-    min-width: 400px;
+    min-width: 700px; /*Was 400*/
   /*  background-color:#ffffff; */
 }
 
@@ -1101,7 +1105,7 @@ QStackedWidget#SendCoinsEntry .QFrame#SendCoins > .QLabel { /* Send Coin Entry L
 /* QStackedWidget#SendCoinsEntry .QValidatedLineEdit#payTo:!focus { /* Pay To Input Field */
 
 QStackedWidget#SendCoinsEntry .QToolButton { /* General Settings for Pay To Icons */
-    background-color: #f2f2f2;
+    background-color: #d9d9d9; /*Was f2f2f2*/
     border-width: 1px;
     border-style: outset;
     border-color: #010736;
@@ -1138,6 +1142,7 @@ QDialog#CoinControlDialog .QLabel#labelCoinControlQuantityText { /* Coin Control
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlQuantity { /* Coin Control Quantity */
     min-height: 30px;
+    background-color: #d9d9d9;
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlBytesText { /* Coin Control Bytes Label */
@@ -1145,15 +1150,17 @@ QDialog#CoinControlDialog .QLabel#labelCoinControlBytesText { /* Coin Control By
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlBytes { /* Coin Control Bytes */
+    background-color: #d9d9d9;
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlAmountText { /* Coin Control Amount Label */
     min-height: 30px;
-    padding-left: 15px;
+    padding-left: 15px;    
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlAmount { /* Coin Control Amount */
     min-height: 30px;
+    background-color: #d9d9d9;
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlPriorityText { /* Coin Control Priority Label */
@@ -1161,6 +1168,7 @@ QDialog#CoinControlDialog .QLabel#labelCoinControlPriorityText { /* Coin Control
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlPriority { /* Coin Control Priority */
+    background-color: #d9d9d9;
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlFeeText { /* Coin Control Fee Label */
@@ -1170,6 +1178,7 @@ QDialog#CoinControlDialog .QLabel#labelCoinControlFeeText { /* Coin Control Fee 
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlFee { /* Coin Control Fee */
     min-height: 30px;
+    background-color: #d9d9d9;
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlLowOutputText { /* Coin Control Low Output Label */
@@ -1177,6 +1186,7 @@ QDialog#CoinControlDialog .QLabel#labelCoinControlLowOutputText { /* Coin Contro
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlLowOutput { /* Coin Control Low Output */
+    background-color: #d9d9d9;
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlAfterFeeText { /* Coin Control After Fee Label */
@@ -1186,6 +1196,7 @@ QDialog#CoinControlDialog .QLabel#labelCoinControlAfterFeeText { /* Coin Control
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlAfterFee { /* Coin Control After Fee */
     min-height: 30px;
+    background-color: #d9d9d9;
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlChangeText { /* Coin Control Change Label */
@@ -1193,6 +1204,7 @@ QDialog#CoinControlDialog .QLabel#labelCoinControlChangeText { /* Coin Control C
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlChange { /* Coin Control Change */
+    background-color: #d9d9d9;
 }
 
 QDialog#CoinControlDialog .QFrame#frame .QPushButton#pushButtonSelectAll { /* (un)select all button */
@@ -1318,6 +1330,7 @@ QWidget#ReceiveCoinsDialog {
 
 QDialog#ReceiveRequestDialog QTextEdit { /* Contents of Receive Coin Dialog */
     border: 1px solid #d7d7d7;
+    color: black;
 }
 
 /**************************** TRANSACTIONS PAGE *****************************************/
