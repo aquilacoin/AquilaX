@@ -106,9 +106,9 @@ public:
         bnProofOfWorkLimit = ~uint256(0) >> 1;
         nSubsidyHalvingInterval = 1050000;
         nMaxReorganizationDepth = 100;
-        nEnforceBlockUpgradeMajority = 750;
-        nRejectBlockOutdatedMajority = 950;
-        nToCheckBlockUpgradeMajority = 1000;
+        nEnforceBlockUpgradeMajority = 510; //Was 750 in version v1.2.0.0
+        nRejectBlockOutdatedMajority = 750; //Was 950 in version v1.2.0.0
+        nToCheckBlockUpgradeMajority = 950; //Was 1000 in version v1.2.0.0
         nMinerThreads = 0;
         nTargetTimespan = 1 * 60;
         nTargetSpacing = 1 * 60;
