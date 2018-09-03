@@ -56,15 +56,14 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-    (0, uint256("0x00000175eaf60f51531b04df3f5926282ba0fc46e9327b0105f44c12ef46ed0a"))
-	(72665, uint256("0x76a78ad7aaae82e999080215280124d3c8e5c5e2c7724f95af9e780410d05acb"));
+    (0, uint256("0x00000175eaf60f51531b04df3f5926282ba0fc46e9327b0105f44c12ef46ed0a"));
 
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
 	1535817148,   // * UNIX timestamp of last checkpoint block
-	150654,          // * total number of transactions between genesis and last checkpoint
+	0,          // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
-    2000        // * estimated number of transactions per day after checkpoint
+    	2000        // * estimated number of transactions per day after checkpoint
 };
 
 static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
@@ -140,11 +139,8 @@ public:
         assert(genesis.hashMerkleRoot == uint256("0x37de3c3f9c16a2406150704193382cf381344fb90b1e470f98fbf903d73dbb6a"));
 
         // DNS Seeding
-        vSeeds.push_back(CDNSSeedData("139.99.194.139", "139.99.194.139"));
-        vSeeds.push_back(CDNSSeedData("139.99.195.25", "139.99.195.25"));
-        vSeeds.push_back(CDNSSeedData("139.99.198.86", "139.99.198.86"));
-        vSeeds.push_back(CDNSSeedData("139.99.56.122", "139.99.56.122"));
-
+        vSeeds.push_back(CDNSSeedData("23.95.213.138", "23.95.213.138"));
+        vSeeds.push_back(CDNSSeedData("172.245.156.155", "172.245.156.155"));
         
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 75);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 18);
@@ -167,7 +163,7 @@ public:
         fHeadersFirstSyncingActive = false;
 
         nPoolMaxTransactions = 3;
-		//This is old spork key before v1.2.0.2
+	//This is old spork key before v1.2.0.2
         //strSporkKey = "04dbdd4a4cf673eb0f68ba5b0be427676bb792becd858ece5309d27342ff31899e5c4399317dab53455ec304e0851a1581feb20a1bf6d2dc27843f16b16aba7ebe";
         strSporkKey = "032c8d6dfd6bd3acbe9fb720276c2d1096dc441d7f1024593ef793d1849207fe61";
         strMasternodePoolDummyAddress = "AcE6KDoRtfEeudFD5y9vnGE5BHSgYG1pAn";
