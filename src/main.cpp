@@ -3,7 +3,7 @@
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
 // Copyright (c) 2017-2017 The Bitcoin Green developers
-// Copyright (c) 2018 The AquilaX developers
+// Copyright (c) 2018 The AquilaX developersnsub
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -1659,7 +1659,7 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
 }
 
 //Treasury blocks start from 70,000 and then each block after
-int nStartTreasuryBlock = 100000; //Block 100,000
+int nStartTreasuryBlock = 140000; //Block 140,000
 int nTreasuryBlockStep = 1440;   
 bool IsTreasuryBlock(int nHeight)
 {
@@ -1676,9 +1676,9 @@ int64_t GetTreasuryAward(int nHeight)
         return COIN * 4330; //10 coins go to stakers
     } else if (nHeight > 70000 && nHeight <= 100000) {  // (1,440 * BlockRewards) * .05 = 4,320 per day 
         return COIN * 4330; //10 coins go to stakers
-    } else if (nHeight > 100000 && nHeight <= 50000) { // (1,440 * BlockRewards) * .05 = 2,160 per day 
+    } else if (nHeight > 100000 && nHeight <= 70000) { // (1,440 * BlockRewards) * .05 = 2,160 per day 
         return COIN * 2170; //10 coins go to stakers
-    } else if (nHeight > 50000 && nHeight <= 100000) { // (1,440 * BlockRewards) * .05 = 1,440 per day 
+    } else if (nHeight > 70000 && nHeight <= 100000) { // (1,440 * BlockRewards) * .05 = 1,440 per day 
         return COIN * 1450;  //10 coins go to stakers
     } else if (nHeight >= 100000) {
         return COIN * 1450;//10 coins go to stakers
