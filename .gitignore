@@ -128,3 +128,6 @@ cmake-build-debug
 .vs/ProjectSettings.json
 .vs/slnx.sqlite
 .vs/VSWorkspaceState.json
+.vs/AquilaX/v15/Browse.VC.opendb
+.vs/AquilaX/v15/ipch/AutoPCH/d53da195e5f861c3/OVERVIEWPAGE.ipch
+.vs/AquilaX/v15/ipch/AutoPCH/63e4548b1905b994/BITCOINGUI.ipch

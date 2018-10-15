@@ -163,7 +163,7 @@ public:
         fHeadersFirstSyncingActive = false;
 
         nPoolMaxTransactions = 3;
-	//This is old spork key before v1.2.0.2
+		//This is old spork key before v1.2.0.2
         //strSporkKey = "04dbdd4a4cf673eb0f68ba5b0be427676bb792becd858ece5309d27342ff31899e5c4399317dab53455ec304e0851a1581feb20a1bf6d2dc27843f16b16aba7ebe";
         strSporkKey = "032c8d6dfd6bd3acbe9fb720276c2d1096dc441d7f1024593ef793d1849207fe61";
         strMasternodePoolDummyAddress = "AcE6KDoRtfEeudFD5y9vnGE5BHSgYG1pAn";
