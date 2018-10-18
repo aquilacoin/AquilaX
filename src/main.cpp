@@ -1673,7 +1673,8 @@ bool IsTreasuryBlock(int nHeight)
 int64_t GetTreasuryAward(int nHeight)
 {
     if (IsTreasuryBlock(nHeight)) {
-          return COIN * 1450;//10 coins go to stakers
+        if (nHeight >= 200000) {
+            return 1450 * COIN;
     } else {
         return 1450;
     }
