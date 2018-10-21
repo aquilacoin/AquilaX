@@ -1623,7 +1623,7 @@ int64_t GetBlockValue(int nHeight)
     }
     if (IsTreasuryBlock(nHeight)) {
         LogPrintf("GetBlockValue(): This is a treasury block for development\n");
-        nSubsidy = GetTreasuryAward(nHeight);
+        return GetTreasuryAward(nHeight);
 
     } else {
         if (nHeight > 0 && nHeight <= 20) //Genesis Block is 0 then 7,500 coins per block till 20
