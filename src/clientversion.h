@@ -16,9 +16,9 @@
 
 //! These need to be macros, as clientversion.cpp's and Aquila*-res.rc's voodoo requires it 
 #define CLIENT_VERSION_MAJOR 1
-#define CLIENT_VERSION_MINOR 2 // Was 0 on launch
+#define CLIENT_VERSION_MINOR 2 //Fix for block 140k stuck
 #define CLIENT_VERSION_REVISION 1 //For dev fee and gui update
-#define CLIENT_VERSION_BUILD 1 
+#define CLIENT_VERSION_BUILD 0 
 
 //! Set to true for release, false for prerelease or test build
 #define CLIENT_VERSION_IS_RELEASE true
